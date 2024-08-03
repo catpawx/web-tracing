@@ -21,7 +21,7 @@
     "update": "esno scripts/update.ts",
     "update:full": "pnpm run update && pnpm run build:types",
     "clean": "rimraf --glob dist types \"packages/*/dist\"",
-    "release": "bumpp --execute=\"npm run release:prepare\" --no-push --no-commit --no-tag",
+    "release-old": "bumpp --execute=\"npm run release:prepare\" --no-push --no-commit --no-tag",
     "release:prepare": "npm run build:types && npm run update",
     "publish": "esno scripts/publish.ts",
     "watch": "esno scripts/build.ts --watch",
@@ -34,7 +34,10 @@
     "example:publish-vue2": "sh scripts/examples/vue2.sh",
     "example:publish-vue3": "sh scripts/examples/vue3.sh",
     "test": "vitest",
-    "test-coverage": "vitest --coverage"
+    "test-coverage": "vitest --coverage",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
   },
   "keywords": [
     "埋点",
@@ -85,7 +88,9 @@
     "cz-git": "^1.9.3",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
-    "@commitlint/cli": "^19.3.0"
+    "@commitlint/cli": "^19.3.0",
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.6"
   },
   "config": {
     "commitizen": {
