@@ -1,4 +1,4 @@
-import { Watcher } from './watcher'
+import type { Watcher } from './watcher'
 
 export class Dep {
   // set结构可以自动去重,因为不可避免有些依赖会被重复添加
@@ -11,6 +11,7 @@ export class Dep {
   addSub() {
     if (Dep.target) this.subs.add(Dep.target)
   }
+
   notify(...params: any[]) {
     // 在某个属性发生变化时会执行其 dep.notify(),用来通知依赖这个属性的所有 watcher
     this.subs.forEach(function (watcher: any) {

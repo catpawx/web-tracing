@@ -1,9 +1,9 @@
-import { Dep } from './dep'
-import { ObserverValue, AnyFun } from './types'
 import { OBSERVERSIGNBOARD } from './config'
+import { Dep } from './dep'
+import type { AnyFun, ObserverValue } from './types'
 
 function isRegExp(value: any) {
-  return Object.prototype.toString.call(value) === `[object RegExp]`
+  return Object.prototype.toString.call(value) === '[object RegExp]'
 }
 
 class Observer<T> {
@@ -11,6 +11,7 @@ class Observer<T> {
   constructor(target: ObserverValue<T>) {
     this.target = target
   }
+
   defineReactive() {
     const dep = new Dep()
     const handlers = getHandlers(
@@ -19,7 +20,7 @@ class Observer<T> {
       },
       (oldValue: any) => {
         dep.notify(oldValue)
-      }
+      },
     )
     return new Proxy<ObserverValue<T>>(this.target, handlers)
   }
@@ -27,7 +28,7 @@ class Observer<T> {
 
 function getHandlers(
   getCallBack?: AnyFun,
-  setCallBack?: AnyFun
+  setCallBack?: AnyFun,
 ): ProxyHandler<ObserverValue<any>> {
   const proxyCache = new WeakMap<ObserverValue<any>, any>()
   const handlers: ProxyHandler<ObserverValue<any>> = {
@@ -53,7 +54,7 @@ function getHandlers(
       const result = Reflect.set(target, key, value, receiver)
       setCallBack && setCallBack(beforeTarget)
       return result
-    }
+    },
   }
   return handlers
 }

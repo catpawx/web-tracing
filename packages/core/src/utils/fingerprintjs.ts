@@ -66,7 +66,7 @@ function t(e, n) {
         return o[1]
       },
       trys: [],
-      ops: []
+      ops: [],
     }
   return (
     (a = { next: c(0), throw: c(1), return: c(2) }),
@@ -89,8 +89,8 @@ function t(e, n) {
                   2 & c[0]
                     ? r.return
                     : c[0]
-                    ? r.throw || ((o = r.return) && o.call(r), 0)
-                    : r.next) &&
+                      ? r.throw || ((o = r.return) && o.call(r), 0)
+                      : r.next) &&
                 !(o = o.call(r, c[1])).done)
             )
               return o
@@ -168,7 +168,7 @@ function i(e, n) {
           },
           function (e) {
             return n(!1, e)
-          }
+          },
         )
       : n(!0, t)
   } catch (r) {
@@ -254,16 +254,16 @@ function d(e, n) {
   return 32 === (n %= 64)
     ? [e[1], e[0]]
     : n < 32
-    ? [(e[0] << n) | (e[1] >>> (32 - n)), (e[1] << n) | (e[0] >>> (32 - n))]
-    : ((n -= 32),
-      [(e[1] << n) | (e[0] >>> (32 - n)), (e[0] << n) | (e[1] >>> (32 - n))])
+      ? [(e[0] << n) | (e[1] >>> (32 - n)), (e[1] << n) | (e[0] >>> (32 - n))]
+      : ((n -= 32),
+        [(e[1] << n) | (e[0] >>> (32 - n)), (e[0] << n) | (e[1] >>> (32 - n))])
 }
 function m(e, n) {
   return 0 === (n %= 64)
     ? e
     : n < 32
-    ? [(e[0] << n) | (e[1] >>> (32 - n)), e[1] << n]
-    : [e[1] << (n - 32), 0]
+      ? [(e[0] << n) | (e[1] >>> (32 - n)), e[1] << n]
+      : [e[1] << (n - 32), 0]
 }
 function f(e, n) {
   return [e[0] ^ n[0], e[1] ^ n[1]]
@@ -295,7 +295,7 @@ function h(e, n) {
       (255 & e.charCodeAt(t)) |
         ((255 & e.charCodeAt(t + 1)) << 8) |
         ((255 & e.charCodeAt(t + 2)) << 16) |
-        ((255 & e.charCodeAt(t + 3)) << 24)
+        ((255 & e.charCodeAt(t + 3)) << 24),
     ]),
       (u = [
         (255 & e.charCodeAt(t + 12)) |
@@ -305,7 +305,7 @@ function h(e, n) {
         (255 & e.charCodeAt(t + 8)) |
           ((255 & e.charCodeAt(t + 9)) << 8) |
           ((255 & e.charCodeAt(t + 10)) << 16) |
-          ((255 & e.charCodeAt(t + 11)) << 24)
+          ((255 & e.charCodeAt(t + 11)) << 24),
       ]),
       (c = d((c = s(c, h)), 31)),
       (a = l((a = d((a = f(a, (c = s(c, b)))), 27)), i)),
@@ -459,7 +459,7 @@ function V(e, r, a) {
                                   })
                                   u(o), (i[r] = o)
                                 } else n = !1
-                            })
+                            }),
                           ]
                         )
                       case 1:
@@ -510,7 +510,7 @@ function Z() {
       'msSetImmediate' in e,
       'msIndexedDB' in e,
       'msMaxTouchPoints' in n,
-      'msPointerEnabled' in n
+      'msPointerEnabled' in n,
     ]) >= 4
   )
 }
@@ -522,7 +522,7 @@ function S() {
       'msWriteProfilerMark' in e,
       'MSStream' in e,
       'msLaunchUri' in n,
-      'msSaveBlob' in n
+      'msSaveBlob' in n,
     ]) >= 3 && !Z()
   )
 }
@@ -537,7 +537,7 @@ function X() {
       'webkitResolveLocalFileSystemURL' in e,
       'BatteryManager' in e,
       'webkitMediaStream' in e,
-      'webkitSpeechGrammar' in e
+      'webkitSpeechGrammar' in e,
     ]) >= 5
   )
 }
@@ -551,7 +551,7 @@ function x() {
       'Counter' in e,
       0 === n.vendor.indexOf('Apple'),
       'getStorageUpdates' in n,
-      'WebKitMediaKeys' in e
+      'WebKitMediaKeys' in e,
     ]) >= 4
   )
 }
@@ -562,7 +562,7 @@ function F() {
       'safari' in e,
       !('DeviceMotionEvent' in e),
       !('ongestureend' in e),
-      !('standalone' in navigator)
+      !('standalone' in navigator),
     ]) >= 3
   )
 }
@@ -584,7 +584,7 @@ function Y() {
       'onmozfullscreenchange' in t,
       'mozInnerScreenX' in t,
       'CSSMozDocumentRule' in t,
-      'CanvasCaptureMediaStream' in t
+      'CanvasCaptureMediaStream' in t,
     ]) >= 4
   )
 }
@@ -608,7 +608,7 @@ function R() {
       'onorientationchange' in t,
       'orientation' in t,
       e && !('SharedWorker' in t),
-      n && /android/i.test(navigator.appVersion)
+      n && /android/i.test(navigator.appVersion),
     ]) >= 2
   )
 }
@@ -671,7 +671,7 @@ function M(e, r, a) {
                         : setTimeout(c, 10))
                   }
                   c()
-                })
+                }),
               ]
             )
           case 5:
@@ -742,7 +742,7 @@ function I(e) {
                 null !== (t = null !== (n = d[4]) && void 0 !== n ? n : d[5]) &&
                   void 0 !== t
                   ? t
-                  : ''
+                  : '',
               )
               break
             default:
@@ -830,7 +830,7 @@ const A = ['monospace', 'sans-serif', 'serif'],
     'TRAJAN PRO',
     'Univers CE 55 Medium',
     'Vrinda',
-    'ZWAdobeF'
+    'ZWAdobeF',
   ]
 function H(e) {
   return e.toDataURL()
@@ -858,17 +858,17 @@ function z() {
                 ? N
                   ? [2, r([], N, !0)]
                   : C()
-                  ? [
-                      4,
-                      ((t = document),
-                      (
-                        t.exitFullscreen ||
-                        t.msExitFullscreen ||
-                        t.mozCancelFullScreen ||
-                        t.webkitExitFullscreen
-                      ).call(t))
-                    ]
-                  : [3, 2]
+                    ? [
+                        4,
+                        ((t = document),
+                        (
+                          t.exitFullscreen ||
+                          t.msExitFullscreen ||
+                          t.mozCancelFullScreen ||
+                          t.webkitExitFullscreen
+                        ).call(t)),
+                      ]
+                    : [3, 2]
                 : [3, 2]
             case 1:
               n.sent(), (e = D()), (n.label = 2)
@@ -887,7 +887,7 @@ function D() {
     y(p(e.availTop), null),
     y(p(e.width) - p(e.availWidth) - y(p(e.availLeft), 0), null),
     y(p(e.height) - p(e.availHeight) - y(p(e.availTop), 0), null),
-    y(p(e.availLeft), null)
+    y(p(e.availLeft), null),
   ]
 }
 function E(e) {
@@ -962,7 +962,7 @@ const ee = {
   sans: [{ fontFamily: 'sans-serif' }],
   mono: [{ fontFamily: 'monospace' }],
   min: [{ fontSize: '1px' }],
-  system: [{ fontFamily: 'system-ui' }]
+  system: [{ fontFamily: 'system-ui' }],
 }
 const ne = {
   fonts: function () {
@@ -1034,208 +1034,208 @@ const ne = {
                     '#Kolom-Iklan-728',
                     '#SidebarIklan-wrapper',
                     c('YVt0aXRsZT0iN25hZ2EgcG9rZXIiIGld'),
-                    '[title="ALIENBOLA" i]'
+                    '[title="ALIENBOLA" i]',
                   ],
                   abpvn: [
                     '#quangcaomb',
                     c('Lmlvc0Fkc2lvc0Fkcy1sYXlvdXQ='),
                     '.quangcao',
                     c('W2hyZWZePSJodHRwczovL3I4OC52bi8iXQ=='),
-                    c('W2hyZWZePSJodHRwczovL3piZXQudm4vIl0=')
+                    c('W2hyZWZePSJodHRwczovL3piZXQudm4vIl0='),
                   ],
                   adBlockFinland: [
                     '.mainostila',
                     c('LnNwb25zb3JpdA=='),
                     '.ylamainos',
                     c('YVtocmVmKj0iL2NsaWNrdGhyZ2guYXNwPyJd'),
-                    c('YVtocmVmXj0iaHR0cHM6Ly9hcHAucmVhZHBlYWsuY29tL2FkcyJd')
+                    c('YVtocmVmXj0iaHR0cHM6Ly9hcHAucmVhZHBlYWsuY29tL2FkcyJd'),
                   ],
                   adBlockPersian: [
                     '#navbar_notice_50',
                     '.kadr',
                     'TABLE[width="140px"]',
                     '#divAgahi',
-                    c('I2FkMl9pbmxpbmU=')
+                    c('I2FkMl9pbmxpbmU='),
                   ],
                   adBlockWarningRemoval: [
                     '#adblock-honeypot',
                     '.adblocker-root',
                     '.wp_adblock_detect',
                     c('LmhlYWRlci1ibG9ja2VkLWFk'),
-                    c('I2FkX2Jsb2NrZXI=')
+                    c('I2FkX2Jsb2NrZXI='),
                   ],
                   adGuardAnnoyances: [
                     'amp-embed[type="zen"]',
                     '.hs-sosyal',
                     '#cookieconsentdiv',
                     'div[class^="app_gdpr"]',
-                    '.as-oil'
+                    '.as-oil',
                   ],
                   adGuardBase: [
                     '.BetterJsPopOverlay',
                     c('I2FkXzMwMFgyNTA='),
                     c('I2Jhbm5lcmZsb2F0MjI='),
                     c('I2FkLWJhbm5lcg=='),
-                    c('I2NhbXBhaWduLWJhbm5lcg==')
+                    c('I2NhbXBhaWduLWJhbm5lcg=='),
                   ],
                   adGuardChinese: [
                     c('LlppX2FkX2FfSA=='),
                     c('YVtocmVmKj0iL29kMDA1LmNvbSJd'),
                     c('YVtocmVmKj0iLmh0aGJldDM0LmNvbSJd'),
                     '.qq_nr_lad',
-                    '#widget-quan'
+                    '#widget-quan',
                   ],
                   adGuardFrench: [
                     c('I2Jsb2NrLXZpZXdzLWFkcy1zaWRlYmFyLWJsb2NrLWJsb2Nr'),
                     '#pavePub',
                     c('LmFkLWRlc2t0b3AtcmVjdGFuZ2xl'),
                     '.mobile_adhesion',
-                    '.widgetadv'
+                    '.widgetadv',
                   ],
                   adGuardGerman: [
                     c('LmJhbm5lcml0ZW13ZXJidW5nX2hlYWRfMQ=='),
                     c('LmJveHN0YXJ0d2VyYnVuZw=='),
                     c('LndlcmJ1bmcz'),
                     c(
-                      'YVtocmVmXj0iaHR0cDovL3d3dy5laXMuZGUvaW5kZXgucGh0bWw/cmVmaWQ9Il0='
+                      'YVtocmVmXj0iaHR0cDovL3d3dy5laXMuZGUvaW5kZXgucGh0bWw/cmVmaWQ9Il0=',
                     ),
                     c(
-                      'YVtocmVmXj0iaHR0cHM6Ly93d3cudGlwaWNvLmNvbS8/YWZmaWxpYXRlSWQ9Il0='
-                    )
+                      'YVtocmVmXj0iaHR0cHM6Ly93d3cudGlwaWNvLmNvbS8/YWZmaWxpYXRlSWQ9Il0=',
+                    ),
                   ],
                   adGuardJapanese: [
                     '#kauli_yad_1',
                     c('YVtocmVmXj0iaHR0cDovL2FkMi50cmFmZmljZ2F0ZS5uZXQvIl0='),
                     c('Ll9wb3BJbl9pbmZpbml0ZV9hZA=='),
                     c('LmFkZ29vZ2xl'),
-                    c('LmFkX3JlZ3VsYXIz')
+                    c('LmFkX3JlZ3VsYXIz'),
                   ],
                   adGuardMobile: [
                     c('YW1wLWF1dG8tYWRz'),
                     c('LmFtcF9hZA=='),
                     'amp-embed[type="24smi"]',
                     '#mgid_iframe1',
-                    c('I2FkX2ludmlld19hcmVh')
+                    c('I2FkX2ludmlld19hcmVh'),
                   ],
                   adGuardRussian: [
                     c('YVtocmVmXj0iaHR0cHM6Ly9hZC5sZXRtZWFkcy5jb20vIl0='),
                     c('LnJlY2xhbWE='),
                     'div[id^="smi2adblock"]',
                     c('ZGl2W2lkXj0iQWRGb3hfYmFubmVyXyJd'),
-                    c('I2FkX3NxdWFyZQ==')
+                    c('I2FkX3NxdWFyZQ=='),
                   ],
                   adGuardSocial: [
                     c(
-                      'YVtocmVmXj0iLy93d3cuc3R1bWJsZXVwb24uY29tL3N1Ym1pdD91cmw9Il0='
+                      'YVtocmVmXj0iLy93d3cuc3R1bWJsZXVwb24uY29tL3N1Ym1pdD91cmw9Il0=',
                     ),
                     c('YVtocmVmXj0iLy90ZWxlZ3JhbS5tZS9zaGFyZS91cmw/Il0='),
                     '.etsy-tweet',
                     '#inlineShare',
-                    '.popup-social'
+                    '.popup-social',
                   ],
                   adGuardSpanishPortuguese: [
                     '#barraPublicidade',
                     '#Publicidade',
                     '#publiEspecial',
                     '#queTooltip',
-                    c('W2hyZWZePSJodHRwOi8vYWRzLmdsaXNwYS5jb20vIl0=')
+                    c('W2hyZWZePSJodHRwOi8vYWRzLmdsaXNwYS5jb20vIl0='),
                   ],
                   adGuardTrackingProtection: [
                     '#qoo-counter',
                     c('YVtocmVmXj0iaHR0cDovL2NsaWNrLmhvdGxvZy5ydS8iXQ=='),
                     c(
-                      'YVtocmVmXj0iaHR0cDovL2hpdGNvdW50ZXIucnUvdG9wL3N0YXQucGhwIl0='
+                      'YVtocmVmXj0iaHR0cDovL2hpdGNvdW50ZXIucnUvdG9wL3N0YXQucGhwIl0=',
                     ),
                     c('YVtocmVmXj0iaHR0cDovL3RvcC5tYWlsLnJ1L2p1bXAiXQ=='),
-                    '#top100counter'
+                    '#top100counter',
                   ],
                   adGuardTurkish: [
                     '#backkapat',
                     c('I3Jla2xhbWk='),
                     c('YVtocmVmXj0iaHR0cDovL2Fkc2Vydi5vbnRlay5jb20udHIvIl0='),
                     c('YVtocmVmXj0iaHR0cDovL2l6bGVuemkuY29tL2NhbXBhaWduLyJd'),
-                    c('YVtocmVmXj0iaHR0cDovL3d3dy5pbnN0YWxsYWRzLm5ldC8iXQ==')
+                    c('YVtocmVmXj0iaHR0cDovL3d3dy5pbnN0YWxsYWRzLm5ldC8iXQ=='),
                   ],
                   bulgarian: [
                     c('dGQjZnJlZW5ldF90YWJsZV9hZHM='),
                     '#ea_intext_div',
                     '.lapni-pop-over',
                     '#xenium_hot_offers',
-                    c('I25ld0Fk')
+                    c('I25ld0Fk'),
                   ],
                   easyList: [
                     c('I0FEX0NPTlRST0xfMjg='),
                     c('LnNlY29uZC1wb3N0LWFkcy13cmFwcGVy'),
                     '.universalboxADVBOX03',
                     c('LmFkdmVydGlzZW1lbnQtNzI4eDkw'),
-                    c('LnNxdWFyZV9hZHM=')
+                    c('LnNxdWFyZV9hZHM='),
                   ],
                   easyListChina: [
                     c('YVtocmVmKj0iLndlbnNpeHVldGFuZy5jb20vIl0='),
                     c('LmFwcGd1aWRlLXdyYXBbb25jbGljayo9ImJjZWJvcy5jb20iXQ=='),
                     c('LmZyb250cGFnZUFkdk0='),
                     '#taotaole',
-                    '#aafoot.top_box'
+                    '#aafoot.top_box',
                   ],
                   easyListCookie: [
                     '#AdaCompliance.app-notice',
                     '.text-center.rgpd',
                     '.panel--cookie',
                     '.js-cookies-andromeda',
-                    '.elxtr-consent'
+                    '.elxtr-consent',
                   ],
                   easyListCzechSlovak: [
                     '#onlajny-stickers',
                     c('I3Jla2xhbW5pLWJveA=='),
                     c('LnJla2xhbWEtbWVnYWJvYXJk'),
                     '.sklik',
-                    c('W2lkXj0ic2tsaWtSZWtsYW1hIl0=')
+                    c('W2lkXj0ic2tsaWtSZWtsYW1hIl0='),
                   ],
                   easyListDutch: [
                     c('I2FkdmVydGVudGll'),
                     c('I3ZpcEFkbWFya3RCYW5uZXJCbG9jaw=='),
                     '.adstekst',
                     c('YVtocmVmXj0iaHR0cHM6Ly94bHR1YmUubmwvY2xpY2svIl0='),
-                    '#semilo-lrectangle'
+                    '#semilo-lrectangle',
                   ],
                   easyListGermany: [
                     c('I0FkX1dpbjJkYXk='),
                     c('I3dlcmJ1bmdzYm94MzAw'),
                     c(
-                      'YVtocmVmXj0iaHR0cDovL3d3dy5yb3RsaWNodGthcnRlaS5jb20vP3NjPSJd'
+                      'YVtocmVmXj0iaHR0cDovL3d3dy5yb3RsaWNodGthcnRlaS5jb20vP3NjPSJd',
                     ),
                     c('I3dlcmJ1bmdfd2lkZXNreXNjcmFwZXJfc2NyZWVu'),
                     c(
-                      'YVtocmVmXj0iaHR0cDovL2xhbmRpbmcucGFya3BsYXR6a2FydGVpLmNvbS8/YWc9Il0='
-                    )
+                      'YVtocmVmXj0iaHR0cDovL2xhbmRpbmcucGFya3BsYXR6a2FydGVpLmNvbS8/YWc9Il0=',
+                    ),
                   ],
                   easyListItaly: [
                     c('LmJveF9hZHZfYW5udW5jaQ=='),
                     '.sb-box-pubbliredazionale',
                     c(
-                      'YVtocmVmXj0iaHR0cDovL2FmZmlsaWF6aW9uaWFkcy5zbmFpLml0LyJd'
+                      'YVtocmVmXj0iaHR0cDovL2FmZmlsaWF6aW9uaWFkcy5zbmFpLml0LyJd',
                     ),
                     c('YVtocmVmXj0iaHR0cHM6Ly9hZHNlcnZlci5odG1sLml0LyJd'),
                     c(
-                      'YVtocmVmXj0iaHR0cHM6Ly9hZmZpbGlhemlvbmlhZHMuc25haS5pdC8iXQ=='
-                    )
+                      'YVtocmVmXj0iaHR0cHM6Ly9hZmZpbGlhemlvbmlhZHMuc25haS5pdC8iXQ==',
+                    ),
                   ],
                   easyListLithuania: [
                     c('LnJla2xhbW9zX3RhcnBhcw=='),
                     c('LnJla2xhbW9zX251b3JvZG9z'),
                     c('aW1nW2FsdD0iUmVrbGFtaW5pcyBza3lkZWxpcyJd'),
                     c('aW1nW2FsdD0iRGVkaWt1b3RpLmx0IHNlcnZlcmlhaSJd'),
-                    c('aW1nW2FsdD0iSG9zdGluZ2FzIFNlcnZlcmlhaS5sdCJd')
+                    c('aW1nW2FsdD0iSG9zdGluZ2FzIFNlcnZlcmlhaS5sdCJd'),
                   ],
                   estonian: [
-                    c('QVtocmVmKj0iaHR0cDovL3BheTRyZXN1bHRzMjQuZXUiXQ==')
+                    c('QVtocmVmKj0iaHR0cDovL3BheTRyZXN1bHRzMjQuZXUiXQ=='),
                   ],
                   fanboyAnnoyances: [
                     '#feedback-tab',
                     '#taboola-below-article',
                     '.feedburnerFeedBlock',
                     '.widget-feedburner-counter',
-                    '[title="Subscribe to our blog"]'
+                    '[title="Subscribe to our blog"]',
                   ],
                   fanboyAntiFacebook: ['.util-bar-module-firefly-visible'],
                   fanboyEnhancedTrackers: [
@@ -1243,128 +1243,128 @@ const ne = {
                     '#issuem-leaky-paywall-articles-zero-remaining-nag',
                     '#sovrn_container',
                     'div[class$="-hide"][zoompage-fontsize][style="display: block;"]',
-                    '.BlockNag__Card'
+                    '.BlockNag__Card',
                   ],
                   fanboySocial: [
                     '.td-tags-and-social-wrapper-box',
                     '.twitterContainer',
                     '.youtube-social',
                     'a[title^="Like us on Facebook"]',
-                    'img[alt^="Share on Digg"]'
+                    'img[alt^="Share on Digg"]',
                   ],
                   frellwitSwedish: [
                     c(
-                      'YVtocmVmKj0iY2FzaW5vcHJvLnNlIl1bdGFyZ2V0PSJfYmxhbmsiXQ=='
+                      'YVtocmVmKj0iY2FzaW5vcHJvLnNlIl1bdGFyZ2V0PSJfYmxhbmsiXQ==',
                     ),
                     c('YVtocmVmKj0iZG9rdG9yLXNlLm9uZWxpbmsubWUiXQ=='),
                     'article.category-samarbete',
                     c('ZGl2LmhvbGlkQWRz'),
-                    'ul.adsmodern'
+                    'ul.adsmodern',
                   ],
                   greekAdBlock: [
                     c('QVtocmVmKj0iYWRtYW4ub3RlbmV0LmdyL2NsaWNrPyJd'),
                     c(
-                      'QVtocmVmKj0iaHR0cDovL2F4aWFiYW5uZXJzLmV4b2R1cy5nci8iXQ=='
+                      'QVtocmVmKj0iaHR0cDovL2F4aWFiYW5uZXJzLmV4b2R1cy5nci8iXQ==',
                     ),
                     c(
-                      'QVtocmVmKj0iaHR0cDovL2ludGVyYWN0aXZlLmZvcnRobmV0LmdyL2NsaWNrPyJd'
+                      'QVtocmVmKj0iaHR0cDovL2ludGVyYWN0aXZlLmZvcnRobmV0LmdyL2NsaWNrPyJd',
                     ),
                     'DIV.agores300',
-                    'TABLE.advright'
+                    'TABLE.advright',
                   ],
                   hungarian: [
                     '#cemp_doboz',
                     '.optimonk-iframe-container',
                     c('LmFkX19tYWlu'),
                     c('W2NsYXNzKj0iR29vZ2xlQWRzIl0='),
-                    '#hirdetesek_box'
+                    '#hirdetesek_box',
                   ],
                   iDontCareAboutCookies: [
                     '.alert-info[data-block-track*="CookieNotice"]',
                     '.ModuleTemplateCookieIndicator',
                     '.o--cookies--container',
                     '.cookie-msg-info-container',
-                    '#cookies-policy-sticky'
+                    '#cookies-policy-sticky',
                   ],
                   icelandicAbp: [
                     c(
-                      'QVtocmVmXj0iL2ZyYW1ld29yay9yZXNvdXJjZXMvZm9ybXMvYWRzLmFzcHgiXQ=='
-                    )
+                      'QVtocmVmXj0iL2ZyYW1ld29yay9yZXNvdXJjZXMvZm9ybXMvYWRzLmFzcHgiXQ==',
+                    ),
                   ],
                   latvian: [
                     c(
-                      'YVtocmVmPSJodHRwOi8vd3d3LnNhbGlkemluaS5sdi8iXVtzdHlsZT0iZGlzcGxheTogYmxvY2s7IHdpZHRoOiAxMjBweDsgaGVpZ2h0OiA0MHB4OyBvdmVyZmxvdzogaGlkZGVuOyBwb3NpdGlvbjogcmVsYXRpdmU7Il0='
+                      'YVtocmVmPSJodHRwOi8vd3d3LnNhbGlkemluaS5sdi8iXVtzdHlsZT0iZGlzcGxheTogYmxvY2s7IHdpZHRoOiAxMjBweDsgaGVpZ2h0OiA0MHB4OyBvdmVyZmxvdzogaGlkZGVuOyBwb3NpdGlvbjogcmVsYXRpdmU7Il0=',
                     ),
                     c(
-                      'YVtocmVmPSJodHRwOi8vd3d3LnNhbGlkemluaS5sdi8iXVtzdHlsZT0iZGlzcGxheTogYmxvY2s7IHdpZHRoOiA4OHB4OyBoZWlnaHQ6IDMxcHg7IG92ZXJmbG93OiBoaWRkZW47IHBvc2l0aW9uOiByZWxhdGl2ZTsiXQ=='
-                    )
+                      'YVtocmVmPSJodHRwOi8vd3d3LnNhbGlkemluaS5sdi8iXVtzdHlsZT0iZGlzcGxheTogYmxvY2s7IHdpZHRoOiA4OHB4OyBoZWlnaHQ6IDMxcHg7IG92ZXJmbG93OiBoaWRkZW47IHBvc2l0aW9uOiByZWxhdGl2ZTsiXQ==',
+                    ),
                   ],
                   listKr: [
                     c('YVtocmVmKj0iLy9hZC5wbGFuYnBsdXMuY28ua3IvIl0='),
                     c('I2xpdmVyZUFkV3JhcHBlcg=='),
                     c('YVtocmVmKj0iLy9hZHYuaW1hZHJlcC5jby5rci8iXQ=='),
                     c('aW5zLmZhc3R2aWV3LWFk'),
-                    '.revenue_unit_item.dable'
+                    '.revenue_unit_item.dable',
                   ],
                   listeAr: [
                     c('LmdlbWluaUxCMUFk'),
                     '.right-and-left-sponsers',
                     c('YVtocmVmKj0iLmFmbGFtLmluZm8iXQ=='),
                     c('YVtocmVmKj0iYm9vcmFxLm9yZyJd'),
-                    c('YVtocmVmKj0iZHViaXp6bGUuY29tL2FyLz91dG1fc291cmNlPSJd')
+                    c('YVtocmVmKj0iZHViaXp6bGUuY29tL2FyLz91dG1fc291cmNlPSJd'),
                   ],
                   listeFr: [
                     c('YVtocmVmXj0iaHR0cDovL3Byb21vLnZhZG9yLmNvbS8iXQ=='),
                     c('I2FkY29udGFpbmVyX3JlY2hlcmNoZQ=='),
                     c('YVtocmVmKj0id2Vib3JhbWEuZnIvZmNnaS1iaW4vIl0='),
                     '.site-pub-interstitiel',
-                    'div[id^="crt-"][data-criteo-id]'
+                    'div[id^="crt-"][data-criteo-id]',
                   ],
                   officialPolish: [
                     '#ceneo-placeholder-ceneo-12',
                     c('W2hyZWZePSJodHRwczovL2FmZi5zZW5kaHViLnBsLyJd'),
                     c(
-                      'YVtocmVmXj0iaHR0cDovL2Fkdm1hbmFnZXIudGVjaGZ1bi5wbC9yZWRpcmVjdC8iXQ=='
+                      'YVtocmVmXj0iaHR0cDovL2Fkdm1hbmFnZXIudGVjaGZ1bi5wbC9yZWRpcmVjdC8iXQ==',
                     ),
                     c(
-                      'YVtocmVmXj0iaHR0cDovL3d3dy50cml6ZXIucGwvP3V0bV9zb3VyY2UiXQ=='
+                      'YVtocmVmXj0iaHR0cDovL3d3dy50cml6ZXIucGwvP3V0bV9zb3VyY2UiXQ==',
                     ),
-                    c('ZGl2I3NrYXBpZWNfYWQ=')
+                    c('ZGl2I3NrYXBpZWNfYWQ='),
                   ],
                   ro: [
                     c(
-                      'YVtocmVmXj0iLy9hZmZ0cmsuYWx0ZXgucm8vQ291bnRlci9DbGljayJd'
+                      'YVtocmVmXj0iLy9hZmZ0cmsuYWx0ZXgucm8vQ291bnRlci9DbGljayJd',
                     ),
                     'a[href^="/magazin/"]',
                     c(
-                      'YVtocmVmXj0iaHR0cHM6Ly9ibGFja2ZyaWRheXNhbGVzLnJvL3Ryay9zaG9wLyJd'
+                      'YVtocmVmXj0iaHR0cHM6Ly9ibGFja2ZyaWRheXNhbGVzLnJvL3Ryay9zaG9wLyJd',
                     ),
                     c(
-                      'YVtocmVmXj0iaHR0cHM6Ly9ldmVudC4ycGVyZm9ybWFudC5jb20vZXZlbnRzL2NsaWNrIl0='
+                      'YVtocmVmXj0iaHR0cHM6Ly9ldmVudC4ycGVyZm9ybWFudC5jb20vZXZlbnRzL2NsaWNrIl0=',
                     ),
-                    c('YVtocmVmXj0iaHR0cHM6Ly9sLnByb2ZpdHNoYXJlLnJvLyJd')
+                    c('YVtocmVmXj0iaHR0cHM6Ly9sLnByb2ZpdHNoYXJlLnJvLyJd'),
                   ],
                   ruAd: [
                     c('YVtocmVmKj0iLy9mZWJyYXJlLnJ1LyJd'),
                     c('YVtocmVmKj0iLy91dGltZy5ydS8iXQ=='),
                     c('YVtocmVmKj0iOi8vY2hpa2lkaWtpLnJ1Il0='),
                     '#pgeldiz',
-                    '.yandex-rtb-block'
+                    '.yandex-rtb-block',
                   ],
                   thaiAds: [
                     'a[href*=macau-uta-popup]',
                     c('I2Fkcy1nb29nbGUtbWlkZGxlX3JlY3RhbmdsZS1ncm91cA=='),
                     c('LmFkczMwMHM='),
                     '.bumq',
-                    '.img-kosana'
+                    '.img-kosana',
                   ],
                   webAnnoyancesUltralist: [
                     '#mod-social-share-2',
                     '#social-tools',
                     c('LmN0cGwtZnVsbGJhbm5lcg=='),
                     '.zergnet-recommend',
-                    '.yt.btn-link.btn-md.btn'
-                  ]
+                    '.yt.btn-link.btn-md.btn',
+                  ],
                 }),
                 (n = Object.keys(e)),
                 [
@@ -1374,9 +1374,9 @@ const ne = {
                       i,
                       n.map(function (n) {
                         return e[n]
-                      })
-                    )
-                  )
+                      }),
+                    ),
+                  ),
                 ])
               : [2, void 0]
           case 1:
@@ -1406,7 +1406,7 @@ const ne = {
                   g(
                     t.map(function (e) {
                       return o[e]
-                    })
+                    }),
                   ) >
                   0.6 * t.length
                 )
@@ -1480,7 +1480,7 @@ const ne = {
             'DOMRectList' in e,
             'RTCPeerConnectionIceEvent' in e,
             'SVGGeometryElement' in e,
-            'ontransitioncancel' in e
+            'ontransitioncancel' in e,
           ]) >= 3
         )
       })()
@@ -1513,9 +1513,12 @@ const ne = {
               return c(e.renderedBuffer)
             }
             const f = function () {
-                setTimeout(function () {
-                  return l(G('timeout'))
-                }, Math.min(r, m + o - Date.now()))
+                setTimeout(
+                  function () {
+                    return l(G('timeout'))
+                  },
+                  Math.min(r, m + o - Date.now()),
+                )
               },
               v = function () {
                 try {
@@ -1537,7 +1540,7 @@ const ne = {
                 s || ((s = !0), m > 0 && f())
               })
           }),
-          i
+          i,
         ]
       })(t),
       c = i[0],
@@ -1552,7 +1555,7 @@ const ne = {
         function (e) {
           if ('timeout' === e.name || 'suspended' === e.name) return -3
           throw e
-        }
+        },
       )
     return (
       u(s),
@@ -1582,8 +1585,8 @@ const ne = {
                     })(e[0]),
                     n(e[1]),
                     n(e[2]),
-                    n(e[3])
-                  ]
+                    n(e[3]),
+                  ],
                 ]
               )
           }
@@ -1605,7 +1608,7 @@ const ne = {
           !('MediaSettingsRange' in (e = window)),
           'RTCEncodedAudioFrame' in e,
           '' + e.Intl == '[object Intl]',
-          '' + e.Reflect == '[object Reflect]'
+          '' + e.Reflect == '[object Reflect]',
         ]) >= 3) ||
         t.push(n.languages)
     else if ('string' == typeof n.languages) {
@@ -1643,7 +1646,7 @@ const ne = {
         ((r = new Date().getFullYear()),
         -Math.max(
           p(new Date(r, 0, 1).getTimezoneOffset()),
-          p(new Date(r, 6, 1).getTimezoneOffset())
+          p(new Date(r, 6, 1).getTimezoneOffset()),
         ))
     return 'UTC'.concat(o >= 0 ? '+' : '').concat(Math.abs(o))
   },
@@ -1686,7 +1689,7 @@ const ne = {
             g([
               'MediaSource' in window,
               !!Element.prototype.webkitRequestFullscreen,
-              n > 0.65 && n < 1.53
+              n > 0.65 && n < 1.53,
             ]) >= 2
           )
         })()
@@ -1741,7 +1744,7 @@ const ne = {
             (n.fillStyle = '#069'),
             (n.font = '11pt "Times New Roman"')
           const t = 'Cwm fjordbank gly '.concat(
-            String.fromCharCode(55357, 56835)
+            String.fromCharCode(55357, 56835),
           )
           n.fillText(t, 2, 15),
             (n.fillStyle = 'rgba(102, 204, 0, 0.2)'),
@@ -1761,7 +1764,7 @@ const ne = {
                 r = [
                   ['#f2f', 40, 40],
                   ['#2ff', 80, 40],
-                  ['#ff2', 60, 80]
+                  ['#ff2', 60, 80],
                 ];
               t < r.length;
               t++
@@ -1800,7 +1803,7 @@ const ne = {
     return {
       maxTouchPoints: t,
       touchEvent: e,
-      touchStart: 'ontouchstart' in window
+      touchStart: 'ontouchstart' in window,
     }
   },
   vendor: function () {
@@ -1825,7 +1828,7 @@ const ne = {
           'samsungAr',
           'ucweb',
           'UCShellJava',
-          'puffinDevice'
+          'puffinDevice',
         ];
       n < t.length;
       n++
@@ -1873,12 +1876,12 @@ const ne = {
     return Q('no-preference')
       ? 0
       : Q('high') || Q('more')
-      ? 1
-      : Q('low') || Q('less')
-      ? -1
-      : Q('forced')
-      ? 10
-      : void 0
+        ? 1
+        : Q('low') || Q('less')
+          ? -1
+          : Q('forced')
+            ? 10
+            : void 0
   },
   reducedMotion: function () {
     return !!U('reduce') || (!U('no-preference') && void 0)
@@ -1943,7 +1946,7 @@ const ne = {
       })(10),
       powPI: (function (e) {
         return q.pow(q.PI, e)
-      })(-100)
+      })(-100),
     }
   },
   videoCard: function () {
@@ -1958,7 +1961,9 @@ const ne = {
       if (r)
         return {
           vendor: (t.getParameter(r.UNMASKED_VENDOR_WEBGL) || '').toString(),
-          renderer: (t.getParameter(r.UNMASKED_RENDERER_WEBGL) || '').toString()
+          renderer: (
+            t.getParameter(r.UNMASKED_RENDERER_WEBGL) || ''
+          ).toString(),
         }
     }
   },
@@ -1969,7 +1974,7 @@ const ne = {
     const e = new Float32Array(1),
       n = new Uint8Array(e.buffer)
     return (e[0] = 1 / 0), (e[0] = e[0] - e[0]), n[3]
-  }
+  },
 }
 function te(e) {
   const n = (function (e) {
@@ -1987,8 +1992,8 @@ function te(e) {
     score: n,
     comment: '$ if upgrade to Pro: https://fpjs.dev/pro'.replace(
       /\$/g,
-      ''.concat(t)
-    )
+      ''.concat(t),
+    ),
   }
 }
 function re(n) {
@@ -2001,13 +2006,13 @@ function re(n) {
               name: (r = t).name,
               message: r.message,
               stack:
-                null === (o = r.stack) || void 0 === o ? void 0 : o.split('\n')
+                null === (o = r.stack) || void 0 === o ? void 0 : o.split('\n'),
             },
-            r
+            r,
           )
         : t
     },
-    2
+    2,
   )
 }
 function oe(e) {
@@ -2023,7 +2028,7 @@ function oe(e) {
           .concat(i)
       }
       return n
-    })(e)
+    })(e),
   )
 }
 function ae(e) {
@@ -2039,7 +2044,7 @@ function ae(e) {
               function () {
                 return e()
               },
-              { timeout: n }
+              { timeout: n },
             )
           })
         : o(Math.min(e, n))
@@ -2070,7 +2075,7 @@ function ie(e, r) {
                     },
                     confidence: te(e),
                     components: e,
-                    version: '3.4.1'
+                    version: '3.4.1',
                   }
                 })(i)),
                 (r || (null == a ? void 0 : a.debug)) &&
@@ -2080,14 +2085,14 @@ function ie(e, r) {
                       .concat(navigator.userAgent, '\ntimeBetweenLoadAndGet: ')
                       .concat(n - o, '\nvisitorId: ')
                       .concat(c.visitorId, '\ncomponents: ')
-                      .concat(re(i), '\n```')
+                      .concat(re(i), '\n```'),
                   ),
                 [2, c]
               )
           }
         })
       })
-    }
+    },
   }
 }
 function ce(e) {
@@ -2128,5 +2133,5 @@ export {
   le as murmurX64Hash128,
   ae as prepareForSources,
   ne as sources,
-  W as transformSource
+  W as transformSource,
 }

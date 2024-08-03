@@ -1,11 +1,11 @@
+import { EVENTTYPES, SEDNEVENTTYPES, WEBPAGELOAD } from '../common'
 import type { AnyObj } from '../types'
-import { baseInfo } from './base'
-import { sendData } from './sendData'
 import { getLocationHref, getTimestamp } from '../utils'
 import { _global } from '../utils/global'
-import { options } from './options'
+import { baseInfo } from './base'
 import { eventBus } from './eventBus'
-import { EVENTTYPES, SEDNEVENTTYPES, WEBPAGELOAD } from '../common'
+import { options } from './options'
+import { sendData } from './sendData'
 
 let oldURL = getLocationHref()
 
@@ -60,7 +60,7 @@ function initPv() {
       if (repetitionRoute) return
       lastIsPop = false
       sendPageView({ action: 'navigation' })
-    }
+    },
   })
 
   eventBus.addEvent({
@@ -72,7 +72,7 @@ function initPv() {
       setTimeout(() => {
         repetitionRoute = false
       }, 100)
-    }
+    },
   })
 
   eventBus.addEvent({
@@ -81,7 +81,7 @@ function initPv() {
       if (repetitionRoute) return
       if (!lastIsPop) sendPageView()
       lastIsPop = false
-    }
+    },
   })
 
   eventBus.addEvent({
@@ -101,7 +101,7 @@ function initPv() {
       }
       lastIsPop = true
       sendPageView()
-    }
+    },
   })
 
   // 在页面卸载时发送页面停留事件
@@ -112,7 +112,7 @@ function initPv() {
       if (Object.values(lastSendObj).length > 0 && durationTime > 100) {
         sendData.emit({ ...lastSendObj, durationTime }, true)
       }
-    }
+    },
   })
 }
 
@@ -144,7 +144,7 @@ function sendPageView(option: AnyObj = {}) {
         params,
         title: title || document.title,
         action: _action,
-        triggerTime: getTimestamp()
+        triggerTime: getTimestamp(),
       }
       sendData.emit(sendObj)
 
@@ -156,10 +156,10 @@ function sendPageView(option: AnyObj = {}) {
       }
       lastSendObj = {
         ...sendObj,
-        eventType: SEDNEVENTTYPES.PVDURATION
+        eventType: SEDNEVENTTYPES.PVDURATION,
       }
     },
-    title ? 0 : 17
+    title ? 0 : 17,
   )
 }
 
@@ -176,10 +176,10 @@ function handleSendPageView(options: AnyObj = {}, flush = false) {
       eventType: SEDNEVENTTYPES.PV,
       eventId: baseInfo.pageId,
       triggerPageUrl: getLocationHref(),
-      triggerTime: getTimestamp()
+      triggerTime: getTimestamp(),
     },
-    flush
+    flush,
   )
 }
 
-export { initPv, handleSendPageView }
+export { handleSendPageView, initPv }

@@ -1,8 +1,9 @@
-import { init, InitOptions } from "@catpawx/web-tracing-core";
+import type { InitOptions } from '@catpawx/web-tracing-core'
+import { init } from '@catpawx/web-tracing-core'
 
 function install(app: any, options: InitOptions) {
-  init(options);
+  init(options)
 }
 
-export default { install };
-export * from "@catpawx/web-tracing-core";
+export default { install }
+export * from '@catpawx/web-tracing-core'

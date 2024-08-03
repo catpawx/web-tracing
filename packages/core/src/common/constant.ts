@@ -17,7 +17,7 @@ export enum EVENTTYPES {
   POPSTATE = 'popstate',
   READYSTATECHANGE = 'readystatechange',
   ONLINE = 'online',
-  OFFLINE = 'offline'
+  OFFLINE = 'offline',
 }
 
 /**
@@ -31,7 +31,7 @@ export enum SEDNEVENTTYPES {
   CLICK = 'click', // 点击
   DWELL = 'dwell', // 页面卸载
   CUSTOM = 'custom', // 手动触发事件
-  INTERSECTION = 'intersection' // 曝光采集
+  INTERSECTION = 'intersection', // 曝光采集
 }
 
 /**
@@ -43,7 +43,7 @@ export enum SENDID {
   SERVER = 'server', // 请求
   CODE = 'code', // code
   REJECT = 'reject', // reject
-  CONSOLEERROR = 'console.error' // console.error
+  CONSOLEERROR = 'console.error', // console.error
 }
 
 /**
@@ -53,5 +53,5 @@ export const WEBPAGELOAD: Record<number, string> = {
   0: 'navigate', // 网页通过点击链接,地址栏输入,表单提交,脚本操作等方式加载
   1: 'reload', // 网页通过“重新加载”按钮或者location.reload()方法加载
   2: 'back_forward', // 网页通过“前进”或“后退”按钮加载
-  255: 'reserved' // 任何其他来源的加载
+  255: 'reserved', // 任何其他来源的加载
 }

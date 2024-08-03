@@ -1,5 +1,5 @@
+import type { WebTracing } from '../types'
 import { isWindow } from './is'
-import { WebTracing } from '../types'
 
 /**
  * 是否为浏览器环境

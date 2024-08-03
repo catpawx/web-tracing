@@ -1,7 +1,8 @@
+import express from 'express'
+import type http from 'http'
+
 import { init } from '../index'
 import { _support } from '../src/utils/global'
-import express from 'express'
-import http from 'http'
 
 const port = 7889
 let server: http.Server
@@ -15,8 +16,8 @@ describe('err', () => {
       recordScreen: false,
       performance: {
         core: false,
-        server: true
-      }
+        server: true,
+      },
     })
 
     const app = express()
@@ -30,7 +31,7 @@ describe('err', () => {
     app.post('/setList', (req, res) => {
       res.send({
         code: 200,
-        meaage: '设置成功'
+        meaage: '设置成功',
       })
     })
     server && server.close()
@@ -68,8 +69,8 @@ describe('err', () => {
           method: 'POST',
           body: JSON.stringify(body),
           headers: {
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         })
   }
 
@@ -86,8 +87,8 @@ describe('err', () => {
         recordscreen: null,
         requestMethod: 'post',
         requestType: 'xhr',
-        responseStatus: 404
-      }
+        responseStatus: 404,
+      },
     ])
   })
 
@@ -102,8 +103,8 @@ describe('err', () => {
         params: '{"username":"example","password":"123456"}',
         requestMethod: 'post',
         requestType: 'xhr',
-        responseStatus: 200
-      }
+        responseStatus: 200,
+      },
     ])
   })
 
@@ -120,8 +121,8 @@ describe('err', () => {
         recordscreen: null,
         requestMethod: 'post',
         requestType: 'fetch',
-        responseStatus: 404
-      }
+        responseStatus: 404,
+      },
     ])
   })
 
@@ -136,8 +137,8 @@ describe('err', () => {
         params: '{"username":"example","password":"123456"}',
         requestMethod: 'post',
         requestType: 'fetch',
-        responseStatus: 200
-      }
+        responseStatus: 200,
+      },
     ])
   })
 })

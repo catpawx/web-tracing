@@ -1,6 +1,6 @@
-import { Dep } from './dep'
 import { computedMap } from './computed'
-import { AnyFun, Options, Proxy } from './types'
+import { Dep } from './dep'
+import type { AnyFun, Options, Proxy } from './types'
 
 const targetStack: Watcher[] = []
 function pushTarget(_target: Watcher) {
@@ -27,7 +27,7 @@ export class Watcher {
     this.callback = callback // 回调函数,专门给watch用的
     this.proxy = {
       value: '', // 存储这个属性的值,在不需要更新的时候会直接取这个值
-      dirty: true // 表示这个属性是否脏了(脏了代表需要重新运算更新这个值)
+      dirty: true, // 表示这个属性是否脏了(脏了代表需要重新运算更新这个值)
     }
     this.vm = vm
 
@@ -39,6 +39,7 @@ export class Watcher {
       this.get()
     }
   }
+
   update(oldValue: any) {
     if (this.computed) {
       // 更新计算属性(不涉及渲染)
@@ -54,6 +55,7 @@ export class Watcher {
       this.get()
     }
   }
+
   get() {
     // 存入当前上下文到依赖(表示当前是哪个属性在依赖其他属性,这样在其他属性发生变化时就知道应该通知谁了)
     pushTarget(this)
@@ -67,6 +69,7 @@ export class Watcher {
     popTarget() // 取出依赖
     return value
   }
+
   /**
    * 监听属性专用 - 拿到最新值并添加依赖
    */
@@ -78,6 +81,7 @@ export class Watcher {
     }
     popTarget() // 取出上面放入 Dep.target 的上下文
   }
+
   /**
    * 计算属性专用 - 添加依赖
    * 其他值用到了这个计算属性就会被记录添加到依赖中

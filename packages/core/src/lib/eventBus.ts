@@ -1,5 +1,5 @@
+import type { EVENTTYPES } from '../common'
 import type { AnyFun } from '../types'
-import { EVENTTYPES } from '../common'
 import { _support } from '../utils/global'
 
 interface EventHandler {
@@ -16,6 +16,7 @@ export class EventBus {
   constructor() {
     this.handlers = {}
   }
+
   /**
    * 为目标类型事件添加回调
    * @param handler 需要被添加的类型以及回调函数
@@ -27,6 +28,7 @@ export class EventBus {
       this.handlers[handler.type]?.push(handler.callback)
     }
   }
+
   /**
    * 为目标类型事件删除回调
    * @param handler 需要被删除的类型以及回调函数
@@ -37,6 +39,7 @@ export class EventBus {
       this.handlers[handler.type]?.splice(funIndex, 1)
     }
   }
+
   /**
    * 为目标类型事件更改回调
    * @param handler 需要被更改的类型以及回调函数
@@ -48,6 +51,7 @@ export class EventBus {
       this.handlers[handler.type]?.splice(funIndex, 1, newCallback)
     }
   }
+
   /**
    * 获取目标类型事件所有的回调
    * @param type 事件类型
@@ -55,6 +59,7 @@ export class EventBus {
   getEvent(type: EVENTTYPES): AnyFun[] {
     return this.handlers[type] || []
   }
+
   /**
    * 执行目标类型事件所有的回调
    * @param type 事件类型
@@ -66,6 +71,7 @@ export class EventBus {
       fun(...args)
     })
   }
+
   /**
    * 获取函数在 callback 列表中的位置
    */

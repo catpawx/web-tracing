@@ -1,23 +1,23 @@
-import type {
-  InternalOptions,
-  AnyFun,
-  TargetGather,
-  ElementOrList,
-  VoidFun
-} from '../types'
-import { options } from './options'
-import { _support } from '../utils/global'
-import { getIPs as _getIPs } from '../utils/getIps'
-import { validateMethods, deepCopy } from '../utils'
-import { handleSendError } from './err'
-import { handleSendPerformance } from './performance'
-import { handleSendEvent } from './event'
-import { handleSendPageView } from './pv'
-import { intersection } from './intersectionObserver'
-import { sendData } from './sendData'
 import { SDK_LOCAL_KEY } from '../common/config'
-import { LocalStorageUtil } from '../utils/localStorage'
 import { unzip } from '../lib/recordscreen'
+import type {
+  AnyFun,
+  ElementOrList,
+  InternalOptions,
+  TargetGather,
+  VoidFun,
+} from '../types'
+import { deepCopy, validateMethods } from '../utils'
+import { getIPs as _getIPs } from '../utils/getIps'
+import { _support } from '../utils/global'
+import { LocalStorageUtil } from '../utils/localStorage'
+import { handleSendError } from './err'
+import { handleSendEvent } from './event'
+import { intersection } from './intersectionObserver'
+import { options } from './options'
+import { handleSendPerformance } from './performance'
+import { handleSendPageView } from './pv'
+import { sendData } from './sendData'
 
 /**
  * 解压错误录屏数据
@@ -92,7 +92,7 @@ export function getBaseInfo(): object | void {
 
   return {
     ..._support.baseInfo.base,
-    userUuid: options.value.userUuid
+    userUuid: options.value.userUuid,
   }
 }
 

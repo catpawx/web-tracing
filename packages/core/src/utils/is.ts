@@ -35,7 +35,7 @@ export const variableTypeDetection = {
   isObject: isType('Object'),
   isArray: isType('Array'),
   isProcess: isType('process'),
-  isWindow: isType('Window')
+  isWindow: isType('Window'),
 }
 
 /**

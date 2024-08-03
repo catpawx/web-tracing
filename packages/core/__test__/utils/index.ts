@@ -1,8 +1,8 @@
-import path from 'path'
-import http from 'http'
-import url from 'url'
 import fs from 'fs'
+import http from 'http'
+import path from 'path'
 import puppeteer from 'puppeteer'
+import url from 'url'
 
 interface IMimeType {
   [key: string]: string
@@ -14,10 +14,11 @@ export function startServer(defaultPort = 3030) {
       '.html': 'text/html',
       '.js': 'text/javascript',
       '.css': 'text/css',
-      '.png': 'image/png'
+      '.png': 'image/png',
     }
 
     const s = http.createServer((req, res) => {
+      // eslint-disable-next-line n/no-deprecated-api
       const parsedUrl = url.parse(req.url!)
       const sanitizePath = path
         .normalize(parsedUrl.pathname!)
@@ -66,16 +67,16 @@ export function replaceLast(str: string, find: string, replace: string) {
 }
 
 export async function launchPuppeteer(
-  options?: Parameters<(typeof puppeteer)['launch']>[0]
+  options?: Parameters<(typeof puppeteer)['launch']>[0],
 ) {
   return await puppeteer.launch({
     headless: true,
     defaultViewport: {
       width: 1920,
-      height: 1080
+      height: 1080,
     },
     args: ['--no-sandbox'],
-    ...options
+    ...options,
   })
 }
 
@@ -90,7 +91,7 @@ export function getHtml(fileName: string, code: string) {
     ${code}
   </script>
   </body>
-  `
+  `,
   )
 }
 

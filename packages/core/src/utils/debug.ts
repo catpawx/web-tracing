@@ -1,11 +1,11 @@
-import { options } from "../lib/options";
+import { options } from '../lib/options'
 
 /**
  * 控制台输出信息
  * @param args 输出信息
  */
 export function debug(...args: any[]): void {
-  if (options.value.debug) console.log("@catpawx/web-tracing: ", ...args);
+  if (options.value.debug) console.log('@catpawx/web-tracing: ', ...args)
 }
 
 /**
@@ -13,5 +13,5 @@ export function debug(...args: any[]): void {
  * @param args 错误信息
  */
 export function logError(...args: any[]): void {
-  console.error("@catpawx/web-tracing: ", ...args);
+  console.error('@catpawx/web-tracing: ', ...args)
 }

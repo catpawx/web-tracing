@@ -1,9 +1,9 @@
-import { isValidKey, getLocationHref, getTimestamp } from '../utils'
-import { getElByAttr, isSimpleEl, getNodeXPath } from '../utils/element'
-import { sendData } from './sendData'
-import { eventBus } from './eventBus'
 import { EVENTTYPES, SEDNEVENTTYPES } from '../common'
+import { getLocationHref, getTimestamp, isValidKey } from '../utils'
+import { getElByAttr, getNodeXPath, isSimpleEl } from '../utils/element'
+import { eventBus } from './eventBus'
 import { options } from './options'
+import { sendData } from './sendData'
 
 class RequestTemplateClick {
   eventId = '' // 事件ID
@@ -32,7 +32,7 @@ function clickCollection() {
     type: EVENTTYPES.CLICK,
     callback: (e: MouseEvent) => {
       const _config = new RequestTemplateClick({
-        eventType: SEDNEVENTTYPES.CLICK
+        eventType: SEDNEVENTTYPES.CLICK,
       })
 
       // 获取被点击的元素到最外层元素组成的数组
@@ -48,7 +48,7 @@ function clickCollection() {
           el.hasAttribute &&
           (el.hasAttribute('data-warden-container') ||
             el.hasAttribute('data-warden-event-id') ||
-            el.hasAttribute('data-warden-title'))
+            el.hasAttribute('data-warden-title')),
       )
 
       if (!target) return
@@ -64,7 +64,7 @@ function clickCollection() {
       _config.params = extractParamsByPath(path) // 提取数据参数
       _config.elementPath = getNodeXPath(target).slice(-128) // 长度限制128字符
       sendData.emit(_config)
-    }
+    },
   })
 }
 
@@ -73,7 +73,7 @@ function clickCollection() {
  */
 function getNodePath(
   node: HTMLElement,
-  options = { includeSelf: true, order: 'asc' }
+  options = { includeSelf: true, order: 'asc' },
 ) {
   if (!node) return []
   const { includeSelf, order } = options
@@ -148,7 +148,7 @@ function handleNoLeafNode(target: Element) {
     return name || res ? textContent : target.getAttribute('href') || null
   }
   const { length } = [...Array.from(target.children)].filter(() =>
-    target.hasChildNodes()
+    target.hasChildNodes(),
   )
   return length > 0 ? null : textContent
 }
@@ -198,7 +198,7 @@ function extractParamsByPath(list: HTMLElement[] = []) {
     target = attributes.find(item =>
       item.nodeName.match(regex)
         ? item.nodeName.match(regex)
-        : item.nodeName.indexOf('data-warden-container') !== -1
+        : item.nodeName.indexOf('data-warden-container') !== -1,
     )
     if (target) {
       targetIndex = index
@@ -235,10 +235,10 @@ function handleSendEvent(options = {}, flush = false) {
       ...options,
       eventType: SEDNEVENTTYPES.CUSTOM,
       triggerTime: getTimestamp(),
-      triggerPageUrl: getLocationHref()
+      triggerPageUrl: getLocationHref(),
     },
-    flush
+    flush,
   )
 }
 
-export { initEvent, handleSendEvent }
+export { handleSendEvent, initEvent }

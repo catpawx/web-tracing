@@ -1,25 +1,25 @@
-import { _support, _global } from '../utils/global'
-import { refreshSession } from '../utils/session'
-import { LocalStorageUtil } from '../utils/localStorage'
+import { SDK_LOCAL_KEY } from '../common/config'
+import { computed } from '../observer'
+import type { AnyObj } from '../types'
 import {
+  executeFunctions,
+  getTimestamp,
+  isObjectOverSizeLimit,
+  map,
+  nextTime,
+  randomBoolean,
   sendByBeacon,
   sendByImage,
   sendByXML,
-  nextTime,
-  map,
   typeofAny,
-  randomBoolean,
-  getTimestamp,
-  isObjectOverSizeLimit
 } from '../utils'
 import { debug, logError } from '../utils/debug'
+import { _global, _support } from '../utils/global'
+import { isArray, isFlase } from '../utils/is'
+import { LocalStorageUtil } from '../utils/localStorage'
+import { refreshSession } from '../utils/session'
 import { baseInfo } from './base'
 import { options } from './options'
-import { AnyObj } from '../types'
-import { isFlase, isArray } from '../utils/is'
-import { SDK_LOCAL_KEY } from '../common/config'
-import { executeFunctions } from '../utils'
-import { computed } from '../observer'
 
 export class SendData {
   private events: AnyObj[] = [] // 批次队列
@@ -40,19 +40,19 @@ export class SendData {
       baseInfo: {
         ...baseInfo.base?.value,
         sendTime: time,
-        userUuid: options.value.userUuid
+        userUuid: options.value.userUuid,
       },
       eventInfo: map(sendEvents, (e: any) => {
         e.sendTime = time
         return e
-      })
+      }),
     }))
 
     // 本地化拦截
     if (options.value.localization) {
       const success = LocalStorageUtil.setSendDataItem(
         SDK_LOCAL_KEY,
-        sendParams.value
+        sendParams.value,
       )
       if (!success) options.value.localizationOverFlow(sendParams.value)
       return
@@ -61,7 +61,7 @@ export class SendData {
     const afterSendParams = executeFunctions(
       options.value.beforeSendData,
       false,
-      sendParams.value
+      sendParams.value,
     )
     if (isFlase(afterSendParams)) return
     if (!this.validateObject(afterSendParams, 'beforeSendData')) return
@@ -71,7 +71,7 @@ export class SendData {
     this.executeSend(options.value.dsn, afterSendParams).then((res: any) => {
       executeFunctions(options.value.afterSendData, true, {
         ...res,
-        params: afterSendParams
+        params: afterSendParams,
       })
     })
 
@@ -80,6 +80,7 @@ export class SendData {
       nextTime(this.send.bind(this)) // 继续传输剩余内容,在下一个时间择机传输
     }
   }
+
   /**
    * 发送本地事件列表
    * @param e 需要发送的事件信息
@@ -88,7 +89,7 @@ export class SendData {
     const afterSendParams = executeFunctions(
       options.value.beforeSendData,
       false,
-      e
+      e,
     )
     if (isFlase(afterSendParams)) return
     if (!this.validateObject(afterSendParams, 'beforeSendData')) return
@@ -97,6 +98,7 @@ export class SendData {
 
     this.executeSend(options.value.dsn, afterSendParams)
   }
+
   /**
    * 记录需要发送的埋点数据
    * @param e 需要发送的事件信息
@@ -111,7 +113,7 @@ export class SendData {
     const eventList = executeFunctions(
       options.value.beforePushEventList,
       false,
-      e
+      e,
     )
 
     if (isFlase(eventList)) return
@@ -133,10 +135,11 @@ export class SendData {
     } else {
       this.timeoutID = setTimeout(
         this.send.bind(this),
-        options.value.cacheWatingTime
+        options.value.cacheWatingTime,
       )
     }
   }
+
   /**
    * 发送数据
    * @param url 目标地址
@@ -173,6 +176,7 @@ export class SendData {
       }
     })
   }
+
   /**
    * 验证选项的类型 - 只验证是否为 {} []
    * 返回 false意思是取消放入队列 / 取消发送
@@ -187,8 +191,8 @@ export class SendData {
     if (['object', 'array'].includes(typeofAny(target))) return true
     logError(
       `TypeError: ${targetName}期望返回 {} 或者 [] 类型，目前是${typeofAny(
-        target
-      )}类型`
+        target,
+      )}类型`,
     )
     return false
   }

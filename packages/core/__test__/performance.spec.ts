@@ -1,9 +1,9 @@
 import fs from 'fs'
+import type http from 'http'
 import path from 'path'
-import http from 'http'
+import type { Browser, Page } from 'puppeteer'
 
-import { getServerURL, startServer, launchPuppeteer, getHtml } from './utils'
-import { Browser, Page } from 'puppeteer'
+import { getHtml, getServerURL, launchPuppeteer, startServer } from './utils'
 
 describe('err', () => {
   vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 })
@@ -32,7 +32,7 @@ describe('err', () => {
     appName: 'cxh',
     clientHeight: 1080,
     clientWidth: 1920,
-    vendor: 'Google Inc.'
+    vendor: 'Google Inc.',
   }
 
   async function loadTestPage() {
@@ -49,7 +49,7 @@ describe('err', () => {
 
   function assertInitiatorType(
     data: any,
-    initiatorType: 'script' | 'link' | 'img'
+    initiatorType: 'script' | 'link' | 'img',
   ) {
     expect(data).toMatchObject({
       baseInfo,
@@ -57,16 +57,16 @@ describe('err', () => {
         {
           eventId: 'resource',
           eventType: 'performance',
-          initiatorType: initiatorType
-        }
-      ]
+          initiatorType,
+        },
+      ],
     })
   }
 
   it('firstResource performance should be captured correctly', async () => {
     const page = await loadTestPage()
     const webTracingData = (await page.evaluate(
-      `window.__WebTracingData__`
+      'window.__WebTracingData__',
     )) as any[]
 
     expect(webTracingData).toMatchObject({
@@ -74,9 +74,9 @@ describe('err', () => {
       eventInfo: [
         {
           eventId: 'page',
-          eventType: 'performance'
-        }
-      ]
+          eventType: 'performance',
+        },
+      ],
     })
   })
 
@@ -86,7 +86,7 @@ describe('err', () => {
     await page.waitForFunction(() => {
       return (window as any).WebTracingTestVar !== undefined
     })
-    const webTracingData = await page.evaluate(`window.__WebTracingData__`)
+    const webTracingData = await page.evaluate('window.__WebTracingData__')
     assertInitiatorType(webTracingData, 'script')
   })
 
@@ -98,7 +98,7 @@ describe('err', () => {
       const style = window.getComputedStyle(element)
       return style.color === 'rgb(255, 0, 0)'
     })
-    const webTracingData = await page.evaluate(`window.__WebTracingData__`)
+    const webTracingData = await page.evaluate('window.__WebTracingData__')
     assertInitiatorType(webTracingData, 'link')
   })
 
@@ -106,7 +106,7 @@ describe('err', () => {
     const page = await loadTestPage()
     await page.click('.img-button')
     await page.waitForSelector('#performance-img-div img')
-    const webTracingData = await page.evaluate(`window.__WebTracingData__`)
+    const webTracingData = await page.evaluate('window.__WebTracingData__')
     assertInitiatorType(webTracingData, 'img')
   })
 })

@@ -9,7 +9,7 @@ describe('err', () => {
       appName: 'unit-test',
       error: true,
       recordScreen: false,
-      ignoreErrors: [/^ignore/]
+      ignoreErrors: [/^ignore/],
     })
   })
 
@@ -28,7 +28,7 @@ describe('err', () => {
       filename: 'test.js',
       lineno: 10,
       colno: 20,
-      error: new Error('code error')
+      error: new Error('code error'),
     })
     window.dispatchEvent(errorEvent)
     expect(testResult.spy).toHaveBeenCalledTimes(1)
@@ -37,7 +37,7 @@ describe('err', () => {
       col: 20,
       eventId: 'code',
       eventType: 'error',
-      errMessage: 'code error'
+      errMessage: 'code error',
     })
   })
 
@@ -45,15 +45,15 @@ describe('err', () => {
     const testResult = proxyEmit()
     const errorEvent = new PromiseRejectionEvent('unhandledrejection', {
       reason: 'unhandledrejection error',
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      promise: Promise.reject('unhandledrejection error').catch(() => {})
+      // eslint-disable-next-line prefer-promise-reject-errors
+      promise: Promise.reject('unhandledrejection error').catch(() => {}),
     })
     window.dispatchEvent(errorEvent)
     expect(testResult.spy).toHaveBeenCalledTimes(1)
     expect(testResult.error).toMatchObject({
       eventId: 'reject',
       eventType: 'error',
-      errMessage: 'unhandledrejection error'
+      errMessage: 'unhandledrejection error',
     })
   })
 
@@ -64,7 +64,7 @@ describe('err', () => {
     expect(testResult.error).toMatchObject({
       eventId: 'console.error',
       eventType: 'error',
-      errMessage: 'console error'
+      errMessage: 'console error',
     })
   })
 
@@ -74,7 +74,7 @@ describe('err', () => {
       filename: 'test.js',
       lineno: 10,
       colno: 20,
-      error: new Error('ignore error')
+      error: new Error('ignore error'),
     })
     window.dispatchEvent(errorEvent)
     expect(testResult.spy).toHaveBeenCalledTimes(0)

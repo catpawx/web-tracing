@@ -1,5 +1,5 @@
+import type { SendData } from '../types'
 import { deepAssign } from '../utils'
-import { SendData } from '../types'
 
 /**
  * 操作 localstorage 的工具类
@@ -50,12 +50,12 @@ export class LocalStorageUtil {
 
     const localItem = (this.getItem(key) || {
       baseInfo: {},
-      eventInfo: []
+      eventInfo: [],
     }) as SendData
 
     const newItem: SendData = {
       baseInfo: deepAssign(localItem.baseInfo, value.baseInfo),
-      eventInfo: localItem.eventInfo.concat(value.eventInfo)
+      eventInfo: localItem.eventInfo.concat(value.eventInfo),
     }
 
     this.setItem(key, newItem)

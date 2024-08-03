@@ -1,6 +1,6 @@
+import type { AnyFun } from '../types'
+import { debounce, groupArray, throttle } from '../utils'
 import { sendData } from './sendData'
-import { AnyFun } from '../types'
-import { debounce, throttle, groupArray } from '../utils'
 
 const SETTIMEA = 2000
 const SETTIMEB = 20000
@@ -28,13 +28,14 @@ class BatchError {
     this.cacheErrorB = []
     this.throttleProxyAddCacheErrorA = debounce(
       this.proxyAddCacheErrorA,
-      SETTIMEA
+      SETTIMEA,
     )
     this.throttleProxyAddCacheErrorB = throttle(
       this.proxyAddCacheErrorB,
-      SETTIMEB
+      SETTIMEB,
     )
   }
+
   proxyAddCacheErrorA() {
     let len = this.cacheErrorA.length
     if (!len) return
@@ -62,6 +63,7 @@ class BatchError {
       this.cacheErrorA.shift()
     }
   }
+
   proxyAddCacheErrorB() {
     let len = this.cacheErrorB.length
     if (!len) return
@@ -78,7 +80,7 @@ class BatchError {
       if (itemList.length > 1) {
         sumItem.batchErrorLength = itemList.reduce(
           (p, item) => (p += item.batchErrorLength),
-          0
+          0,
         )
         sumItem.batchErrorLastHappenTime =
           itemList[itemList.length - 1].triggerTime
@@ -87,6 +89,7 @@ class BatchError {
     })
     sendData.emit(emitList)
   }
+
   /**
    * 获取所有的错误
    * 用户突然关闭页面时调用此方法集成错误
@@ -112,6 +115,7 @@ class BatchError {
       sendData.emit(arrBsum, true)
     }
   }
+
   pushCacheErrorA(errorInfo: any) {
     this.cacheErrorA.push(errorInfo)
     this.throttleProxyAddCacheErrorA()

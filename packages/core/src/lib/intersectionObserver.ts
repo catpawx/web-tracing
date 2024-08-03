@@ -1,8 +1,8 @@
-import type { ElementOrList, TargetGather, AnyObj } from '../types'
-import { unKnowToArray, getTimestamp, getLocationHref } from '../utils'
-import { sendData } from './sendData'
-import { _support } from '../utils/global'
 import { SEDNEVENTTYPES } from '../common'
+import type { AnyObj, ElementOrList, TargetGather } from '../types'
+import { getLocationHref, getTimestamp, unKnowToArray } from '../utils'
+import { _support } from '../utils/global'
+import { sendData } from './sendData'
 
 interface IoMap {
   [key: number]: IntersectionObserver
@@ -28,8 +28,9 @@ class Intersection {
   private options = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.5 // 阀值设为0.5，当只有比例达到一半时才触发回调函数
+    threshold: 0.5, // 阀值设为0.5，当只有比例达到一半时才触发回调函数
   }
+
   /**
    * 针对 threshold 生成不同监听对象 (不允许同一个dom被两个监听对象监听)
    * @param threshold 阈值
@@ -40,14 +41,14 @@ class Intersection {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const targetObj = this.targetMap.find(
-              mapTarget => mapTarget.target === entry.target
+              mapTarget => mapTarget.target === entry.target,
             )
             if (targetObj) {
               targetObj.showTime = getTimestamp()
             }
           } else {
             const targetObj = this.targetMap.find(
-              mapTarget => mapTarget.target === entry.target
+              mapTarget => mapTarget.target === entry.target,
             )
             if (targetObj) {
               // 在进入页面时指定了没有在屏幕可视界面的dom，会立即触发这里
@@ -61,10 +62,11 @@ class Intersection {
       },
       {
         ...this.options,
-        threshold
-      }
+        threshold,
+      },
     )
   }
+
   /**
    * 发送事件
    */
@@ -72,9 +74,10 @@ class Intersection {
     sendData.emit({
       eventType: SEDNEVENTTYPES.INTERSECTION,
       triggerPageUrl: getLocationHref(),
-      ...targetObj
+      ...targetObj,
     })
   }
+
   /**
    * 开始观察目标元素
    * 分为初始加载和过程中加载
@@ -91,7 +94,7 @@ class Intersection {
 
       _targetList.forEach(target => {
         const index = this.targetMap.findIndex(
-          mapTarget => mapTarget.target === target
+          mapTarget => mapTarget.target === target,
         )
         // 不允许重复观察
         if (index === -1) {
@@ -102,12 +105,13 @@ class Intersection {
             target,
             threshold: item.threshold,
             observeTime: getTimestamp(), // 开始监听的时间
-            params: item.params
+            params: item.params,
           })
         }
       })
     })
   }
+
   /**
    * 对元素停止观察
    */
@@ -117,7 +121,7 @@ class Intersection {
     _targetList.forEach(_target => {
       // 第一步：找出此元素代表的 threshold 值
       const targetIndex = this.targetMap.findIndex(
-        mapTarget => mapTarget.target === _target
+        mapTarget => mapTarget.target === _target,
       )
       if (targetIndex === -1) return // 不存在的元素则跳过
 
@@ -131,6 +135,7 @@ class Intersection {
       io.unobserve(_target)
     })
   }
+
   /**
    * 对所有元素停止观察
    */

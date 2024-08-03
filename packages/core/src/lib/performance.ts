@@ -1,17 +1,17 @@
-import { sendData } from './sendData'
-import { eventBus } from './eventBus'
 import { EVENTTYPES, SEDNEVENTTYPES, SENDID } from '../common'
-import { AnyObj } from '../types'
+import type { AnyObj } from '../types'
 import {
-  on,
   getLocationHref,
-  normalizeObj,
+  getTimestamp,
   isValidKey,
+  normalizeObj,
+  on,
   sendReaconImageList,
-  getTimestamp
 } from '../utils'
 import { _global, _support } from '../utils/global'
+import { eventBus } from './eventBus'
 import { options } from './options'
+import { sendData } from './sendData'
 
 // 兼容判断
 const supported = {
@@ -21,7 +21,7 @@ const supported = {
   ),
   PerformanceObserver: 'PerformanceObserver' in _global,
   MutationObserver: 'MutationObserver' in _global,
-  PerformanceNavigationTiming: 'PerformanceNavigationTiming' in _global
+  PerformanceNavigationTiming: 'PerformanceNavigationTiming' in _global,
 }
 
 // 资源属性
@@ -42,7 +42,7 @@ const performanceEntryAttrs = {
   requestStart: 0,
   responseStart: 0,
   responseEnd: 0,
-  workerStart: 0
+  workerStart: 0,
 }
 
 /**
@@ -55,7 +55,7 @@ function traceResourcePerformance(performance: PerformanceObserverEntryList) {
   const observerTypeList = ['img', 'script', 'link', 'audio', 'video', 'css']
 
   const entries = performance.getEntriesByType(
-    'resource'
+    'resource',
   ) as PerformanceResourceTiming[]
   const records: any[] = []
 
@@ -69,7 +69,7 @@ function traceResourcePerformance(performance: PerformanceObserverEntryList) {
     // sdk内部 img 发送请求的错误不会记录
     if (sendReaconImageList.length) {
       const index = sendReaconImageList.findIndex(
-        item => item.src === entry.name
+        item => item.src === entry.name,
       )
 
       if (index !== -1) {
@@ -92,8 +92,8 @@ function traceResourcePerformance(performance: PerformanceObserverEntryList) {
         eventId: SENDID.RESOURCE,
         requestUrl: entry.name,
         triggerTime: getTimestamp(),
-        triggerPageUrl: getLocationHref()
-      })
+        triggerPageUrl: getLocationHref(),
+      }),
     )
   })
 
@@ -123,8 +123,8 @@ function observeSourceInsert() {
                 requestUrl: node.src || node.href,
                 duration: getTimestamp() - startTime,
                 triggerTime: getTimestamp(),
-                triggerPageUrl: getLocationHref()
-              })
+                triggerPageUrl: getLocationHref(),
+              }),
             )
           })
           on(node as Document, EVENTTYPES.ERROR, function () {
@@ -136,8 +136,8 @@ function observeSourceInsert() {
                 responseStatus: 'error',
                 duration: getTimestamp() - startTime,
                 triggerTime: getTimestamp(),
-                triggerPageUrl: getLocationHref()
-              })
+                triggerPageUrl: getLocationHref(),
+              }),
             )
           })
         }
@@ -146,7 +146,7 @@ function observeSourceInsert() {
   })
   observer.observe(_global.document, {
     subtree: true, // 目标以及目标的后代改变都会观察
-    childList: true // 表示观察目标子节点的变化，比如添加或者删除目标子节点，不包括修改子节点以及子节点后代的变化
+    childList: true, // 表示观察目标子节点的变化，比如添加或者删除目标子节点，不包括修改子节点以及子节点后代的变化
     // attributes: true, // 观察属性变动
     // attributeFilter: ['src', 'href'] // 要观察的属性
   })
@@ -220,8 +220,8 @@ function observeNavigationTiming() {
     normalizeObj({
       ...resultInfo,
       eventType: SEDNEVENTTYPES.PERFORMANCE,
-      eventId: SENDID.PAGE
-    })
+      eventId: SENDID.PAGE,
+    }),
   )
 }
 
@@ -263,7 +263,7 @@ function initPerformance() {
       type: EVENTTYPES.LOAD,
       callback: () => {
         observeResource()
-      }
+      },
     })
   }
 }
@@ -277,9 +277,9 @@ function handleSendPerformance(options = {}, flush = false) {
     ...options,
     triggerTime: getTimestamp(),
     triggerPageUrl: getLocationHref(),
-    eventType: SEDNEVENTTYPES.PERFORMANCE
+    eventType: SEDNEVENTTYPES.PERFORMANCE,
   }
   sendData.emit(normalizeObj(record), flush)
 }
 
-export { initPerformance, handleSendPerformance }
+export { handleSendPerformance, initPerformance }

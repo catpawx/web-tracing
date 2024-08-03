@@ -6,7 +6,7 @@ export type AnyFun = {
   (...args: any[]): any
 }
 
-export type voidFun<T> = {
+export type VoidFun<T> = {
   (...args: T[]): void
 }
 

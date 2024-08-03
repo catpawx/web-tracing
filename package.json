@@ -1,10 +1,16 @@
 {
-  "name": "@catpawx/web-tracing-monorepo",
-  "version": "1.0.0",
-  "description": "基于 JS 跨平台插件，为前端项目提供【 行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段",
+  "name": "@catpawx/web-tracing",
+  "version": "0.0.0",
+  "description": "🐾 基于 JS 跨平台插件，为前端项目提供【 行为、性能、异常、请求、资源、路由、曝光、录屏 】监控手段",
   "private": true,
-  "packageManager": "pnpm@9.0.6",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "lint": "eslint packages --fix --ext .js",
+    "lint:ts": "tsc --noEmit && eslint packages --ext .ts,.tsx --fix",
+    "prettier": "prettier --write 'packages/**/*.{js,json,yml,yaml,css,scss,less,ts,tsx,md}'",
+    "commit": "git-cz",
+    "prepare": "husky",
+    "lint-staged": "lint-staged --allow-empty",
     "docs": "pnpm run -C docs docs",
     "docs:build": "pnpm run -C docs docs:build",
     "docs:publish": "sh scripts/publish-docs.sh",
@@ -43,6 +49,8 @@
   "license": "MIT",
   "devDependencies": {
     "@algolia/client-search": "^4.16.0",
+    "@catpawx/eslint-config-preset": "^1.0.0",
+    "@catpawx/prettier-config-preset": "^1.0.0",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
@@ -51,8 +59,6 @@
     "@types/jsdom": "^21.1.7",
     "@types/node": "^18.15.10",
     "@types/prettier": "^2.7.2",
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
-    "@typescript-eslint/parser": "^5.56.0",
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
     "bumpp": "^9.0.0",
@@ -60,22 +66,30 @@
     "cross-env": "^7.0.3",
     "esbuild": "0.17.14",
     "esbuild-register": "^3.4.2",
-    "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint": "^8.56.0",
     "esno": "^0.17.0",
     "express": "^4.18.2",
     "fs-extra": "^11.1.1",
     "jsdom": "^24.1.0",
     "ohmyfetch": "^0.4.21",
-    "prettier": "^2.8.7",
+    "prettier": "^3.2.5",
     "puppeteer": "^22.11.1",
     "rimraf": "^4.4.1",
     "rollup": "^3.26.0",
     "rollup-plugin-dts": "^5.3.0",
     "rollup-plugin-esbuild": "^5.0.0",
-    "typescript": "^5.0.2",
+    "typescript": "^5.4.5",
     "vitepress": "1.0.0-beta.5",
-    "vitest": "^1.6.0"
+    "vitest": "^1.6.0",
+    "commitizen": "^4.3.0",
+    "cz-git": "^1.9.3",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "@commitlint/cli": "^19.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
   }
 }

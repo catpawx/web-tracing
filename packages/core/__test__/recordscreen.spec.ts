@@ -1,9 +1,9 @@
 import fs from 'fs'
+import type http from 'http'
 import path from 'path'
-import http from 'http'
+import type { Browser, Page } from 'puppeteer'
 
-import { getServerURL, startServer, launchPuppeteer, getHtml } from './utils'
-import { Browser, Page } from 'puppeteer'
+import { getHtml, getServerURL, launchPuppeteer, startServer } from './utils'
 
 describe('err', () => {
   vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 })
@@ -42,9 +42,9 @@ describe('err', () => {
   it('error recordscreen should be captured correctly', async () => {
     const page = await loadTestPage()
     await page.click('.code-error-button')
-    const webTracingData = await page.evaluate(`window.__WebTracingData__`)
+    const webTracingData = await page.evaluate('window.__WebTracingData__')
     expect(
-      (webTracingData as any).eventInfo[0].recordscreen
+      (webTracingData as any).eventInfo[0].recordscreen,
     ).not.toBeUndefined()
   })
 })

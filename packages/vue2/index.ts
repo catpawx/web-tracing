@@ -1,14 +1,14 @@
+import type { InitOptions } from '@catpawx/web-tracing-core'
 import {
   init,
-  InitOptions,
-  traceError,
   logError,
   parseError,
   SENDID,
-} from "@catpawx/web-tracing-core";
+  traceError,
+} from '@catpawx/web-tracing-core'
 
 function install(Vue: any, options: InitOptions) {
-  const handler = Vue.config.errorHandler;
+  const handler = Vue.config.errorHandler
   Vue.config.errorHandler = function (err: Error, vm: any, info: string): void {
     // const match = err.stack!.match(/(?<=http:\/\/.*:\d+\/).*:\d+:\d+/)
     // const position = match ? match[0] : ''
@@ -21,13 +21,14 @@ function install(Vue: any, options: InitOptions) {
     //   col
     // })
 
-    logError(err);
-    const errorInfo = { eventId: SENDID.CODE, ...parseError(err) };
-    traceError(errorInfo);
-    if (handler) handler.apply(null, [err, vm, info]);
-  };
-  init(options);
+    logError(err)
+    const errorInfo = { eventId: SENDID.CODE, ...parseError(err) }
+    traceError(errorInfo)
+    // eslint-disable-next-line no-useless-call
+    if (handler) handler.apply(null, [err, vm, info])
+  }
+  init(options)
 }
 
-export default { install };
-export * from "@catpawx/web-tracing-core";
+export default { install }
+export * from '@catpawx/web-tracing-core'

@@ -1,13 +1,13 @@
 import { DEVICE_KEY, SDK_VERSION } from '../common'
-import { _support, getGlobal, isTestEnv } from '../utils/global'
-import { load } from '../utils/fingerprintjs'
-import { getCookieByName, uuid } from '../utils'
-import { getSessionId } from '../utils/session'
-import { options } from './options'
-import { getIPs } from '../utils/getIps'
-import { AnyObj } from '../types'
 import { computed } from '../observer'
 import type { ObserverValue } from '../observer/types'
+import type { AnyObj } from '../types'
+import { getCookieByName, uuid } from '../utils'
+import { load } from '../utils/fingerprintjs'
+import { getIPs } from '../utils/getIps'
+import { _support, getGlobal, isTestEnv } from '../utils/global'
+import { getSessionId } from '../utils/session'
+import { options } from './options'
 import { sendData } from './sendData'
 
 interface Device {
@@ -54,6 +54,7 @@ export class BaseInfo {
         sendData.emit([])
       })
   }
+
   private initDevice() {
     const { screen } = getGlobal()
     const { clientWidth, clientHeight } = document.documentElement
@@ -72,9 +73,10 @@ export class BaseInfo {
       screenWidth: width, // 显示屏幕的宽度
       screenHeight: height, // 显示屏幕的高度
       vendor: navigator.vendor, // 浏览器名称
-      platform: navigator.platform // 浏览器平台的环境,不是电脑系统的x64这样的(浏览器平台的环境可能是x32)
+      platform: navigator.platform, // 浏览器平台的环境,不是电脑系统的x64这样的(浏览器平台的环境可能是x32)
     }
   }
+
   /**
    * 初始化 base 数据
    */
@@ -93,7 +95,7 @@ export class BaseInfo {
       pageId: this.pageId,
       sessionId,
       sdkVersion: SDK_VERSION,
-      ip
+      ip,
     }))
 
     !isTestEnv &&
@@ -102,6 +104,7 @@ export class BaseInfo {
         ip = res[0]
       })
   }
+
   /**
    * 初始化sdk中给用户的唯一标识
    */

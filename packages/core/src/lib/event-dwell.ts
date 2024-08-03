@@ -2,7 +2,7 @@
  * 这部分功能移植到 pv 中，并且默认开启
  */
 import { EVENTTYPES, SEDNEVENTTYPES, WEBPAGELOAD } from '../common'
-import { uuid, isValidKey, getTimestamp, getLocationHref } from '../utils'
+import { getLocationHref, getTimestamp, isValidKey, uuid } from '../utils'
 import { eventBus } from './eventBus'
 import { sendData } from './sendData'
 // import { options } from './options'
@@ -36,7 +36,7 @@ function dwellCollector() {
     type: EVENTTYPES.LOAD,
     callback: () => {
       _config.entryTime = getTimestamp()
-    }
+    },
   })
 
   // 卸载事件
@@ -51,7 +51,7 @@ function dwellCollector() {
       const { type } = performance.navigation // 表示加载来源, type为 0,1,2,255
       _config.operateAction = WEBPAGELOAD[type] || ''
       sendData.emit(_config, true)
-    }
+    },
   })
 }
 

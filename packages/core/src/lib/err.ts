@@ -1,14 +1,14 @@
 import { EVENTTYPES, SEDNEVENTTYPES, SENDID } from '../common'
-import { map, filter, getLocationHref, getTimestamp } from '../utils'
-import { _global } from '../utils/global'
-import { sendData } from './sendData'
-import { eventBus } from './eventBus'
-import { isArray, isRegExp } from '../utils/is'
-import { options } from './options'
-import { zip, getEventList } from './recordscreen'
+import type { RecordEventScope } from '../types'
+import { filter, getLocationHref, getTimestamp, map } from '../utils'
 import { debug } from '../utils/debug'
-import { initBatchError, batchError } from './err-batch'
-import { RecordEventScope } from '../types'
+import { _global } from '../utils/global'
+import { isArray, isRegExp } from '../utils/is'
+import { batchError, initBatchError } from './err-batch'
+import { eventBus } from './eventBus'
+import { options } from './options'
+import { getEventList, zip } from './recordscreen'
+import { sendData } from './sendData'
 
 interface ErrorStack {
   errMessage: string
@@ -35,7 +35,7 @@ function parseStack(err: Error): ErrorStack {
     // chrome中包含了message信息,将其去除,并去除后面的换行符
     const callStackStr = stack.replace(
       new RegExp(`^[\\w\\s:]*${message}\n`),
-      ''
+      '',
     )
     const callStackFrameList = map(
       filter(callStackStr.split('\n'), (item: string) => item),
@@ -45,7 +45,7 @@ function parseStack(err: Error): ErrorStack {
           return {
             triggerPageUrl: chromeErrResult[2],
             line: chromeErrResult[3], // 错误发生位置的行数
-            col: chromeErrResult[4] // 错误发生位置的列数
+            col: chromeErrResult[4], // 错误发生位置的列数
           }
         }
 
@@ -54,11 +54,11 @@ function parseStack(err: Error): ErrorStack {
           return {
             triggerPageUrl: mozlliaErrResult[2],
             line: mozlliaErrResult[3],
-            col: mozlliaErrResult[4]
+            col: mozlliaErrResult[4],
           }
         }
         return {}
-      }
+      },
     )
     const item = callStackFrameList[0] || {}
     return { ...result, ...item }
@@ -83,7 +83,7 @@ function parseError(e: any) {
         eventId: SENDID.CODE,
         line: lineNumber, // 不稳定属性 - 在某些浏览器可能是undefined，被废弃了
         col: columnNumber, // 不稳定属性 - 非标准，有些浏览器可能不支持
-        triggerPageUrl: fileName // 不稳定属性 - 非标准，有些浏览器可能不支持
+        triggerPageUrl: fileName, // 不稳定属性 - 非标准，有些浏览器可能不支持
       }
     }
     return parseStack(e)
@@ -104,7 +104,7 @@ function parseError(e: any) {
  * 判断是否为 promise-reject 错误类型
  */
 function isPromiseRejectedResult(
-  event: ErrorEvent | PromiseRejectedResult
+  event: ErrorEvent | PromiseRejectedResult,
 ): event is PromiseRejectedResult {
   return (event as PromiseRejectedResult).reason !== undefined
 }
@@ -123,7 +123,7 @@ function parseErrorEvent(event: ErrorEvent | PromiseRejectedResult) {
       const result = {
         initiatorType: target.nodeName.toLowerCase(),
         eventId: SENDID.RESOURCE,
-        requestUrl: ''
+        requestUrl: '',
       }
       switch (target.nodeName.toLowerCase()) {
         case 'link':
@@ -155,7 +155,7 @@ function parseErrorEvent(event: ErrorEvent | PromiseRejectedResult) {
     line: (_global as any).event.errorLine,
     col: (_global as any).event.errorCharacter,
     errMessage: (_global as any).event.errorMessage,
-    triggerPageUrl: (_global as any).event.errorUrl
+    triggerPageUrl: (_global as any).event.errorUrl,
   }
 }
 
@@ -193,7 +193,7 @@ function isIgnoreErrors(error: any): boolean {
  */
 function getRecordEvent(): RecordEventScope[] {
   const _recordscreenList: RecordEventScope[] = JSON.parse(
-    JSON.stringify(getEventList())
+    JSON.stringify(getEventList()),
   )
   return _recordscreenList
     .slice(-2)
@@ -211,7 +211,7 @@ function emit(errorInfo: any, flush = false): void {
     eventType: SEDNEVENTTYPES.ERROR,
     recordscreen: options.value.recordScreen ? zip(getRecordEvent()) : null,
     triggerPageUrl: getLocationHref(),
-    triggerTime: getTimestamp()
+    triggerTime: getTimestamp(),
   }
 
   options.value.scopeError
@@ -232,7 +232,7 @@ function initError(): void {
       type: EVENTTYPES.BEFOREUNLOAD,
       callback: () => {
         batchError.sendAllCacheError()
-      }
+      },
     })
   }
 
@@ -243,7 +243,7 @@ function initError(): void {
       const errorInfo = parseErrorEvent(e)
       if (isIgnoreErrors(errorInfo)) return
       emit(errorInfo)
-    }
+    },
   })
 
   // promise调用链未捕获异常
@@ -254,7 +254,7 @@ function initError(): void {
       const errorInfo = parseErrorEvent(e)
       if (isIgnoreErrors(errorInfo)) return
       emit(errorInfo)
-    }
+    },
   })
 
   // 劫持console.error
@@ -264,7 +264,7 @@ function initError(): void {
       const errorInfo = parseError(e)
       if (isIgnoreErrors(errorInfo)) return
       emit({ eventId: SENDID.CODE, ...errorInfo })
-    }
+    },
   })
 }
 
@@ -278,4 +278,4 @@ function handleSendError(options = {}, flush = false): void {
   emit(options, flush)
 }
 
-export { initError, handleSendError, parseError }
+export { handleSendError, initError, parseError }

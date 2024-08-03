@@ -1,10 +1,11 @@
-import { record } from 'rrweb'
-import pako from 'pako'
 import { Base64 } from 'js-base64'
-import { RecordEventScope } from '../types'
+import pako from 'pako'
+import { record } from 'rrweb'
+
+import { watch } from '../observer'
+import type { RecordEventScope } from '../types'
 import { getTimestamp } from '../utils'
 import { options } from './options'
-import { watch } from '../observer'
 
 /**
  * 只存储最近30s的所有录屏 (分为3段)
@@ -47,13 +48,15 @@ let recordScreen: RecordScreen | undefined
 
 export class RecordScreen {
   public eventList: RecordEventScope[] = [
-    { scope: `${getTimestamp()}-`, eventList: [] }
+    { scope: `${getTimestamp()}-`, eventList: [] },
   ]
+
   private closeCallback: ReturnType<typeof record>
 
   constructor() {
     this.init()
   }
+
   private init() {
     this.closeCallback = record({
       emit: (event, isCheckout) => {
@@ -71,9 +74,10 @@ export class RecordScreen {
         }
       },
       recordCanvas: true,
-      checkoutEveryNms: MAXSCOPETIME // 每5s重新制作快照
+      checkoutEveryNms: MAXSCOPETIME, // 每5s重新制作快照
     })
   }
+
   public close() {
     this.closeCallback?.()
     this.closeCallback = undefined
@@ -141,7 +145,7 @@ export function unzip(b64Data: string) {
   for (i = 0; i < data.length / chunk; i++) {
     str += String.fromCharCode.apply(
       null,
-      data.slice(i * chunk, (i + 1) * chunk)
+      data.slice(i * chunk, (i + 1) * chunk),
     )
   }
   str += String.fromCharCode.apply(null, data.slice(i * chunk))

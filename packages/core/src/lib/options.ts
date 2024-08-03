@@ -1,10 +1,10 @@
-import type { InternalOptions, AnyFun, InitOptions, VoidFun } from '../types'
-import { typeofAny, deepAssign } from '../utils'
-import { isEmpty } from '../utils/is'
-import { _support } from '../utils/global'
-import { logError } from '../utils/debug'
 import { ref } from '../observer'
 import type { ObserverValue } from '../observer/types'
+import type { AnyFun, InitOptions, InternalOptions, VoidFun } from '../types'
+import { deepAssign, typeofAny } from '../utils'
+import { logError } from '../utils/debug'
+import { _support } from '../utils/global'
+import { isEmpty } from '../utils/is'
 
 /**
  * 管理全局的参数
@@ -18,20 +18,24 @@ export class Options implements InternalOptions {
   sdkUserUuid = '' // 用户id(sdk内部生成的id)
   debug = false // 是否开启调试模式(控制台会输出sdk动作)
   pv = {
-    core: false // 页面跳转-是否自动发送页面跳转相关数据
+    core: false, // 页面跳转-是否自动发送页面跳转相关数据
   }
+
   performance = {
     core: false, // 性能数据-是否采集静态资源、接口的相关数据
     firstResource: false, // 性能数据-是否采集首次进入页面的数据(ps: tcp连接耗时,HTML加载完成时间,首次可交互时间)
-    server: false // 接口请求-是否采集接口请求(成功的才会采集)
+    server: false, // 接口请求-是否采集接口请求(成功的才会采集)
   }
+
   error = {
     core: false, // 是否采集异常数据(ps: 资源引入错误,promise错误,控制台输出错误)
-    server: false // 接口请求-是否采集报错接口数据
+    server: false, // 接口请求-是否采集报错接口数据
   }
+
   event = {
-    core: false // 页面点击-是否采集点击事件
+    core: false, // 页面点击-是否采集点击事件
   }
+
   recordScreen = true // 是否启动录屏
 
   ext = {} // 自定义全局附加参数(放在baseInfo中)
@@ -77,25 +81,25 @@ export class Options implements InternalOptions {
 
     if (typeof pv === 'boolean') {
       _options.pv = {
-        core: pv
+        core: pv,
       }
     }
     if (typeof performance === 'boolean') {
       _options.performance = {
         core: performance,
         firstResource: performance,
-        server: performance
+        server: performance,
       }
     }
     if (typeof error === 'boolean') {
       _options.error = {
         core: error,
-        server: error
+        server: error,
       }
     }
     if (typeof event === 'boolean') {
       _options.event = {
-        core: event
+        core: event,
       }
     }
 
@@ -137,7 +141,7 @@ function _validateInitOption(options: InitOptions) {
     sendTypeByXmlBody,
     // whiteScreen,
     beforePushEventList,
-    beforeSendData
+    beforeSendData,
   } = options
 
   const validateFunList = []
@@ -154,9 +158,9 @@ function _validateInitOption(options: InitOptions) {
       validateOption(
         performance.firstResource,
         'performance.firstResource',
-        'boolean'
+        'boolean',
       ),
-      validateOption(performance.server, 'performance.server', 'boolean')
+      validateOption(performance.server, 'performance.server', 'boolean'),
     )
   } else {
     validateFunList.push(validateOption(performance, 'performance', 'boolean'))
@@ -165,7 +169,7 @@ function _validateInitOption(options: InitOptions) {
   if (error && typeof error === 'object') {
     validateFunList.push(
       validateOption(error.core, 'error.core', 'boolean'),
-      validateOption(error.server, 'error.server', 'boolean')
+      validateOption(error.server, 'error.server', 'boolean'),
     )
   } else {
     validateFunList.push(validateOption(error, 'error', 'boolean'))
@@ -203,7 +207,7 @@ function _validateInitOption(options: InitOptions) {
     validateOption(sendTypeByXmlBody, 'sendTypeByXmlBody', 'boolean'),
     // validateOption(whiteScreen, 'whiteScreen', 'boolean'),
     validateOption(beforePushEventList, 'beforePushEventList', 'function'),
-    validateOption(beforeSendData, 'beforeSendData', 'function')
+    validateOption(beforeSendData, 'beforeSendData', 'function'),
   ]
 
   return validateList.every(res => !!res)
@@ -216,7 +220,7 @@ function _validateInitOption(options: InitOptions) {
 function _validateMustFill(options: InitOptions) {
   const validateList = [
     validateOptionMustFill(options.appName, 'appName'),
-    validateOptionMustFill(options.dsn, 'dsn')
+    validateOptionMustFill(options.dsn, 'dsn'),
   ]
 
   return validateList.every(res => !!res)
@@ -246,13 +250,13 @@ function validateOptionMustFill(target: any, targetName: string): boolean {
 function validateOption(
   target: any,
   targetName: string,
-  expectType: string
+  expectType: string,
 ): boolean | void {
   if (!target || typeofAny(target) === expectType) return true
   logError(
     `TypeError:【${targetName}】期望传入${expectType}类型，目前是${typeofAny(
-      target
-    )}类型`
+      target,
+    )}类型`,
   )
   return false
 }
@@ -267,7 +271,7 @@ function validateOption(
 function validateOptionArray(
   target: any[] | undefined,
   targetName: string,
-  expectTypes: string[]
+  expectTypes: string[],
 ): boolean | void {
   if (!target) return true
   let pass = true
@@ -276,8 +280,8 @@ function validateOptionArray(
     if (!expectTypes.includes(typeofAny(item))) {
       logError(
         `TypeError:【${targetName}】数组内的值期望传入${expectTypes.join(
-          '|'
-        )}类型，目前值${item}是${typeofAny(item)}类型`
+          '|',
+        )}类型，目前值${item}是${typeofAny(item)}类型`,
       )
       pass = false
     }

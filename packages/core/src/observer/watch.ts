@@ -1,12 +1,13 @@
-import { Watcher } from './watcher'
 import { isRef } from './ref'
-import { ObserverValue, AnyFun, voidFun } from './types'
+import type { AnyFun, ObserverValue, VoidFun } from './types'
+import { Watcher } from './watcher'
 
 function watchInit(callback: AnyFun, getter: AnyFun) {
+  // eslint-disable-next-line no-new
   new Watcher('', { watch: true, callback }, getter)
 }
 
-export function watch<T>(target: ObserverValue<T>, fun: voidFun<T>) {
+export function watch<T>(target: ObserverValue<T>, fun: VoidFun<T>) {
   if (!isRef(target)) return
   watchInit(
     (newValue: T, oldValue: T) => {
@@ -14,6 +15,6 @@ export function watch<T>(target: ObserverValue<T>, fun: voidFun<T>) {
     },
     function () {
       return target.value
-    }
+    },
   )
 }

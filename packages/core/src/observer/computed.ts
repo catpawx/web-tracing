@@ -1,6 +1,6 @@
-import { Watcher } from './watcher'
-import { ObserverValue, AnyFun } from './types'
 import { OBSERVERSIGNBOARD } from './config'
+import type { AnyFun, ObserverValue } from './types'
+import { Watcher } from './watcher'
 
 /**
  * 计算属性响应式
@@ -10,6 +10,7 @@ export class Computed<T> {
   constructor(target: ObserverValue<T>) {
     this.target = target
   }
+
   defineReactive() {
     const computedWatcher = new Watcher(this, { computed: true })
 
@@ -32,7 +33,7 @@ export class Computed<T> {
           computedWatcher.depend()
           return computedWatcher.proxy.value
         }
-      }
+      },
     }
     return new Proxy<ObserverValue<T>>(this.target, handlers)
   }

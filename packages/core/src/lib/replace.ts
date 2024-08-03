@@ -1,8 +1,8 @@
-import type { VoidFun } from "../types";
-import { _global } from "../utils/global";
-import { on, replaceAop, throttle, isValidKey, getTimestamp } from "../utils";
-import { EVENTTYPES } from "../common";
-import { eventBus } from "./eventBus";
+import { EVENTTYPES } from '../common'
+import type { VoidFun } from '../types'
+import { getTimestamp, isValidKey, on, replaceAop, throttle } from '../utils'
+import { _global } from '../utils/global'
+import { eventBus } from './eventBus'
 
 /**
  * 根据入参初始化 重写、监听
@@ -18,65 +18,65 @@ import { eventBus } from "./eventBus";
 export function initReplace(): void {
   for (const key in EVENTTYPES) {
     if (isValidKey(key, EVENTTYPES)) {
-      replace(key);
+      replace(key)
     }
   }
 }
 
 function replace(type: EVENTTYPES): void {
-  if (!isValidKey(type, EVENTTYPES)) return;
+  if (!isValidKey(type, EVENTTYPES)) return
 
-  const value = EVENTTYPES[type];
+  const value = EVENTTYPES[type]
   // debug('replace-初始化挂载事件:', value)
   switch (value) {
     case EVENTTYPES.ERROR:
-      listenError(EVENTTYPES.ERROR);
-      break;
+      listenError(EVENTTYPES.ERROR)
+      break
     case EVENTTYPES.UNHANDLEDREJECTION:
-      listenUnhandledrejection(EVENTTYPES.UNHANDLEDREJECTION);
-      break;
+      listenUnhandledrejection(EVENTTYPES.UNHANDLEDREJECTION)
+      break
     case EVENTTYPES.CONSOLEERROR:
-      replaceConsoleError(EVENTTYPES.CONSOLEERROR);
-      break;
+      replaceConsoleError(EVENTTYPES.CONSOLEERROR)
+      break
     case EVENTTYPES.CLICK:
-      listenClick(EVENTTYPES.CLICK);
-      break;
+      listenClick(EVENTTYPES.CLICK)
+      break
     case EVENTTYPES.LOAD:
-      listenLoad(EVENTTYPES.LOAD);
-      break;
+      listenLoad(EVENTTYPES.LOAD)
+      break
     case EVENTTYPES.BEFOREUNLOAD:
-      listenBeforeunload(EVENTTYPES.BEFOREUNLOAD);
-      break;
+      listenBeforeunload(EVENTTYPES.BEFOREUNLOAD)
+      break
     case EVENTTYPES.XHROPEN:
-      replaceXHROpen(EVENTTYPES.XHROPEN);
-      break;
+      replaceXHROpen(EVENTTYPES.XHROPEN)
+      break
     case EVENTTYPES.XHRSEND:
-      replaceXHRSend(EVENTTYPES.XHRSEND);
-      break;
+      replaceXHRSend(EVENTTYPES.XHRSEND)
+      break
     case EVENTTYPES.FETCH:
-      replaceFetch(EVENTTYPES.FETCH);
-      break;
+      replaceFetch(EVENTTYPES.FETCH)
+      break
     case EVENTTYPES.HASHCHANGE:
-      listenHashchange(EVENTTYPES.HASHCHANGE);
-      break;
+      listenHashchange(EVENTTYPES.HASHCHANGE)
+      break
     case EVENTTYPES.HISTORYPUSHSTATE:
-      replaceHistoryPushState(EVENTTYPES.HISTORYPUSHSTATE);
-      break;
+      replaceHistoryPushState(EVENTTYPES.HISTORYPUSHSTATE)
+      break
     case EVENTTYPES.HISTORYREPLACESTATE:
-      replaceHistoryReplaceState(EVENTTYPES.HISTORYREPLACESTATE);
-      break;
+      replaceHistoryReplaceState(EVENTTYPES.HISTORYREPLACESTATE)
+      break
     case EVENTTYPES.POPSTATE:
-      listenPopState(EVENTTYPES.POPSTATE);
-      break;
+      listenPopState(EVENTTYPES.POPSTATE)
+      break
     case EVENTTYPES.OFFLINE:
-      listenOffline(EVENTTYPES.OFFLINE);
-      break;
+      listenOffline(EVENTTYPES.OFFLINE)
+      break
     case EVENTTYPES.ONLINE:
-      listenOnline(EVENTTYPES.ONLINE);
-      break;
+      listenOnline(EVENTTYPES.ONLINE)
+      break
 
     default:
-      break;
+      break
   }
 }
 
@@ -86,49 +86,49 @@ function replace(type: EVENTTYPES): void {
 function listenError(type: EVENTTYPES): void {
   on(
     _global,
-    "error",
+    'error',
     function (e: ErrorEvent) {
-      eventBus.runEvent(type, e);
+      eventBus.runEvent(type, e)
     },
-    true
-  );
+    true,
+  )
 }
 /**
  * 监听 - unhandledrejection（promise异常）
  */
 function listenUnhandledrejection(type: EVENTTYPES): void {
-  on(_global, "unhandledrejection", function (ev: PromiseRejectionEvent) {
+  on(_global, 'unhandledrejection', function (ev: PromiseRejectionEvent) {
     // ev.preventDefault() 阻止默认行为后，控制台就不会再报红色错误
-    eventBus.runEvent(type, ev);
-  });
+    eventBus.runEvent(type, ev)
+  })
 }
 /**
  * 重写 - console.error
  */
 function replaceConsoleError(type: EVENTTYPES): void {
-  replaceAop(console, "error", (originalError: VoidFun) => {
+  replaceAop(console, 'error', (originalError: VoidFun) => {
     return function (this: any, ...args: any[]): void {
-      if (!(args[0] && args[0].slice && args[0].slice(0, 12) === "@catpawx")) {
-        eventBus.runEvent(type, args);
+      if (!(args[0] && args[0].slice && args[0].slice(0, 12) === '@catpawx')) {
+        eventBus.runEvent(type, args)
       }
-      originalError.apply(this, args);
-    };
-  });
+      originalError.apply(this, args)
+    }
+  })
 }
 /**
  * 监听 - click
  */
 function listenClick(type: EVENTTYPES): void {
-  if (!("document" in _global)) return;
-  const clickThrottle = throttle(eventBus.runEvent, 100, true);
+  if (!('document' in _global)) return
+  const clickThrottle = throttle(eventBus.runEvent, 100, true)
   on(
     _global.document,
-    "click",
+    'click',
     function (this: any, e: MouseEvent) {
-      clickThrottle.call(eventBus, type, e);
+      clickThrottle.call(eventBus, type, e)
     },
-    true
-  );
+    true,
+  )
 }
 /**
  * 监听 - load
@@ -136,12 +136,12 @@ function listenClick(type: EVENTTYPES): void {
 function listenLoad(type: EVENTTYPES): void {
   on(
     _global,
-    "load",
+    'load',
     function (e: Event) {
-      eventBus.runEvent(type, e);
+      eventBus.runEvent(type, e)
     },
-    true
-  );
+    true,
+  )
 }
 /**
  * 监听 - beforeunload
@@ -149,94 +149,94 @@ function listenLoad(type: EVENTTYPES): void {
 function listenBeforeunload(type: EVENTTYPES): void {
   on(
     _global,
-    "beforeunload",
+    'beforeunload',
     function (e: BeforeUnloadEvent) {
-      eventBus.runEvent(type, e);
+      eventBus.runEvent(type, e)
     },
-    false
-  );
+    false,
+  )
 }
 /**
  * 重写 - XHR-open
  */
 function replaceXHROpen(type: EVENTTYPES): void {
-  if (!("XMLHttpRequest" in _global)) return;
-  replaceAop(XMLHttpRequest.prototype, "open", (originalOpen: VoidFun) => {
+  if (!('XMLHttpRequest' in _global)) return
+  replaceAop(XMLHttpRequest.prototype, 'open', (originalOpen: VoidFun) => {
     return function (this: any, ...args: any[]): void {
-      eventBus.runEvent(type, ...args);
-      originalOpen.apply(this, args);
-    };
-  });
+      eventBus.runEvent(type, ...args)
+      originalOpen.apply(this, args)
+    }
+  })
 }
 /**
  * 重写 - XHR-send
  */
 function replaceXHRSend(type: EVENTTYPES): void {
-  if (!("XMLHttpRequest" in _global)) return;
-  replaceAop(XMLHttpRequest.prototype, "send", (originalSend: VoidFun) => {
+  if (!('XMLHttpRequest' in _global)) return
+  replaceAop(XMLHttpRequest.prototype, 'send', (originalSend: VoidFun) => {
     return function (this: any, ...args: any[]): void {
-      eventBus.runEvent(type, this, ...args);
-      originalSend.apply(this, args);
-    };
-  });
+      eventBus.runEvent(type, this, ...args)
+      originalSend.apply(this, args)
+    }
+  })
 }
 /**
  * 重写 - fetch
  */
 function replaceFetch(type: EVENTTYPES): void {
-  if (!("fetch" in _global)) return;
-  replaceAop(_global, "fetch", (originalFetch) => {
+  if (!('fetch' in _global)) return
+  replaceAop(_global, 'fetch', originalFetch => {
     return function (this: any, ...args: any[]): void {
-      const fetchStart = getTimestamp();
+      const fetchStart = getTimestamp()
       return originalFetch.apply(_global, args).then((res: any) => {
-        eventBus.runEvent(type, ...args, res, fetchStart);
-        return res;
-      });
-    };
-  });
+        eventBus.runEvent(type, ...args, res, fetchStart)
+        return res
+      })
+    }
+  })
 }
 /**
  * 监听 - hashchange
  */
 function listenHashchange(type: EVENTTYPES): void {
   // 通过onpopstate事件，来监听hash模式下路由的变化
-  on(_global, "hashchange", function (e: HashChangeEvent) {
-    eventBus.runEvent(type, e);
-  });
+  on(_global, 'hashchange', function (e: HashChangeEvent) {
+    eventBus.runEvent(type, e)
+  })
 }
 /**
  * 重写 - history-replaceState
  */
 function replaceHistoryReplaceState(type: EVENTTYPES): void {
-  if (!("history" in _global)) return;
-  if (!("pushState" in _global.history)) return;
-  replaceAop(_global.history, "replaceState", (originalSend: VoidFun) => {
+  if (!('history' in _global)) return
+  if (!('pushState' in _global.history)) return
+  replaceAop(_global.history, 'replaceState', (originalSend: VoidFun) => {
     return function (this: any, ...args: any[]): void {
-      eventBus.runEvent(type, ...args);
-      originalSend.apply(this, args);
-    };
-  });
+      eventBus.runEvent(type, ...args)
+      originalSend.apply(this, args)
+    }
+  })
 }
 /**
  * 重写 - history-pushState
  */
 function replaceHistoryPushState(type: EVENTTYPES): void {
-  if (!("history" in _global)) return;
-  if (!("pushState" in _global.history)) return;
-  replaceAop(_global.history, "pushState", (originalSend: VoidFun) => {
+  if (!('history' in _global)) return
+  if (!('pushState' in _global.history)) return
+  replaceAop(_global.history, 'pushState', (originalSend: VoidFun) => {
     return function (this: any, ...args: any[]): void {
-      eventBus.runEvent(type, ...args);
-      originalSend.apply(this, args);
-    };
-  });
+      eventBus.runEvent(type, ...args)
+      originalSend.apply(this, args)
+    }
+  })
 }
 /**
  * 监听 - popstate
  */
 function listenPopState(type: EVENTTYPES): void {
-  on(_global, "popstate", function (e: HashChangeEvent) {
-    eventBus.runEvent(type, e);
-  });
+  on(_global, 'popstate', function (e: HashChangeEvent) {
+    eventBus.runEvent(type, e)
+  })
 }
 
 /**
@@ -245,12 +245,12 @@ function listenPopState(type: EVENTTYPES): void {
 function listenOffline(type: EVENTTYPES): void {
   on(
     _global,
-    "offline",
+    'offline',
     function (e: ErrorEvent) {
-      eventBus.runEvent(type, e);
+      eventBus.runEvent(type, e)
     },
-    true
-  );
+    true,
+  )
 }
 /**
  * 监听 - online 网络是否开启
@@ -258,10 +258,10 @@ function listenOffline(type: EVENTTYPES): void {
 function listenOnline(type: EVENTTYPES): void {
   on(
     _global,
-    "online",
+    'online',
     function (e: ErrorEvent) {
-      eventBus.runEvent(type, e);
+      eventBus.runEvent(type, e)
     },
-    true
-  );
+    true,
+  )
 }

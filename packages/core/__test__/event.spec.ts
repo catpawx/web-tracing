@@ -1,6 +1,7 @@
-import { init } from '../index'
-import { _support, _global } from '../src/utils/global'
 import { JSDOM } from 'jsdom'
+
+import { init } from '../index'
+import { _global, _support } from '../src/utils/global'
 
 describe('err', () => {
   beforeAll(() => {
@@ -30,7 +31,7 @@ describe('err', () => {
       dsn: 'http://unit-test.com',
       appName: 'unit-test',
       event: true,
-      recordScreen: false
+      recordScreen: false,
     })
   })
 
@@ -55,8 +56,8 @@ describe('err', () => {
       title: 'test-title',
       elementPath: 'div',
       params: {
-        id: 'test-warden-id'
-      }
+        id: 'test-warden-id',
+      },
     })
   })
 })

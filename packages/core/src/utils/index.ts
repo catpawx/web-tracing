@@ -1,7 +1,7 @@
-import { AnyFun, AnyObj } from '../types'
-import { logError } from './debug'
-import { isRegExp, isArray, isFunction, isNumber } from './is'
+import type { AnyFun, AnyObj } from '../types'
 import { isInit } from '../utils/global'
+import { logError } from './debug'
+import { isArray, isFunction, isNumber, isRegExp } from './is'
 
 /**
  * 添加事件监听器
@@ -14,7 +14,7 @@ export function on(
   target: Window | Document,
   eventName: string,
   handler: AnyFun,
-  opitons = false
+  opitons = false,
 ): void {
   target.addEventListener(eventName, handler, opitons)
 }
@@ -30,7 +30,7 @@ export function replaceAop(
   source: AnyObj,
   name: string,
   replacement: AnyFun,
-  isForced = false
+  isForced = false,
 ): void {
   if (source === undefined) return
   if (name in source || isForced) {
@@ -158,7 +158,7 @@ export function deepAssign<T>(target: AnyObj, ...sources: AnyObj[]) {
         // 如果当前 key 对应的值是一个对象或数组，则进行递归
         target[key] = deepAssign(
           target[key] || (isArray(source[key]) ? [] : {}),
-          source[key]
+          source[key],
         )
       } else {
         // 如果当前 key 对应的值是基本类型数据，则直接赋值
@@ -199,7 +199,7 @@ export function typeofAny(target: any): string {
  */
 export function isValidKey(
   key: string | number | symbol,
-  object: object
+  object: object,
 ): key is keyof typeof object {
   return key in object
 }
@@ -242,18 +242,18 @@ export function uuid() {
   const hexDate = parseInt(
     `${date.getFullYear()}${pad(date.getMonth() + 1, 2)}${pad(
       date.getDate(),
-      2
+      2,
     )}`,
-    10
+    10,
   ).toString(16)
 
   // hh-mm-ss-ms的16进制表示，最大也是7位
   const hexTime = parseInt(
     `${pad(date.getHours(), 2)}${pad(date.getMinutes(), 2)}${pad(
       date.getSeconds(),
-      2
+      2,
     )}${pad(date.getMilliseconds(), 3)}`,
-    10
+    10,
   ).toString(16)
 
   // 第8位数字表示后面的time字符串的长度
@@ -333,11 +333,11 @@ export function sendByXML(url: string, data: any): Promise<void> {
 export function executeFunctions(
   funList: AnyFun[],
   through: boolean,
-  args: any
+  args: any,
 ): any {
   if (funList.length === 0) return args
 
-  let result: any = undefined
+  let result: any
   for (let i = 0; i < funList.length; i++) {
     const func = funList[i]
     if (i === 0 || through) {
@@ -451,7 +451,7 @@ export const cancelNextTime =
  */
 export function isObjectOverSizeLimit(
   object: object,
-  limitInKB: number
+  limitInKB: number,
 ): boolean {
   const serializedObject = JSON.stringify(object)
   const sizeInBytes = new TextEncoder().encode(serializedObject).length

@@ -1,7 +1,7 @@
-import { _support } from '../utils/global'
 import { EVENTTYPES } from '../common'
-import { eventBus } from './eventBus'
 import { debug } from '../utils/debug'
+import { _support } from '../utils/global'
+import { eventBus } from './eventBus'
 
 /**
  * 监听网络状态
@@ -12,6 +12,7 @@ export class LineStatus {
   constructor() {
     this.init()
   }
+
   init() {
     eventBus.addEvent({
       type: EVENTTYPES.OFFLINE,
@@ -20,7 +21,7 @@ export class LineStatus {
           debug('网络断开')
           this.onLine = false
         }
-      }
+      },
     })
     eventBus.addEvent({
       type: EVENTTYPES.ONLINE,
@@ -29,7 +30,7 @@ export class LineStatus {
           debug('网络连接')
           this.onLine = true
         }
-      }
+      },
     })
   }
 }

@@ -1,11 +1,11 @@
-import { on, isValidKey, getTimestamp, parseGetParams } from '../utils'
-import { handleSendError } from './err'
-import { eventBus } from './eventBus'
 import { EVENTTYPES, SENDID } from '../common'
-import { options } from './options'
-import { handleSendPerformance } from './performance'
+import { getTimestamp, isValidKey, on, parseGetParams } from '../utils'
 // import { debug } from '../utils/debug'
 import { isRegExp } from '../utils/is'
+import { handleSendError } from './err'
+import { eventBus } from './eventBus'
+import { options } from './options'
+import { handleSendPerformance } from './performance'
 
 /**
  * fetch请求拦截
@@ -17,7 +17,7 @@ function interceptFetch(): void {
       reqUrl: string,
       _options: Partial<Request> = {},
       res: Response,
-      fetchStart: number
+      fetchStart: number,
     ) => {
       const { method = 'GET', body } = _options
       const { url, status, statusText } = res
@@ -34,7 +34,8 @@ function interceptFetch(): void {
             responseStatus: status,
             requestMethod,
             requestType: 'fetch',
-            params: method.toUpperCase() === 'POST' ? body : parseGetParams(url)
+            params:
+              method.toUpperCase() === 'POST' ? body : parseGetParams(url),
           })
         }
       } else if (options.value.error.server) {
@@ -45,10 +46,10 @@ function interceptFetch(): void {
           responseStatus: status,
           requestMethod,
           requestType: 'fetch',
-          params: method.toUpperCase() === 'POST' ? body : parseGetParams(url)
+          params: method.toUpperCase() === 'POST' ? body : parseGetParams(url),
         })
       }
-    }
+    },
   })
 }
 
@@ -78,7 +79,7 @@ function interceptXHR(): void {
       _config.requestMethod = String(method).toLocaleLowerCase()
       _config.requestUrl = url
       _config.requestParams = parseGetParams(url)
-    }
+    },
   })
 
   eventBus.addEvent({
@@ -106,7 +107,7 @@ function interceptXHR(): void {
                 params:
                   _config.requestMethod === 'post'
                     ? body
-                    : _config.requestParams
+                    : _config.requestParams,
               })
             }
           } else if (options.value.error.server) {
@@ -118,14 +119,14 @@ function interceptXHR(): void {
               requestType: 'xhr',
               responseStatus: status,
               params:
-                _config.requestMethod === 'post' ? body : _config.requestParams
+                _config.requestMethod === 'post' ? body : _config.requestParams,
             })
           }
         }
       })
 
       _config.triggerTime = getTimestamp()
-    }
+    },
   })
 }
 

@@ -1,7 +1,7 @@
-import { ref as _ref } from './ref'
 import { computed as _computed } from './computed'
+import { ref as _ref } from './ref'
+import type { AnyFun, ObserverValue, VoidFun } from './types'
 import { watch as _watch } from './watch'
-import { ObserverValue, AnyFun, voidFun } from './types'
 
 /**
  * 响应式
@@ -27,11 +27,11 @@ function computed<T>(fun: AnyFun) {
   return hasProxy() ? _computed<T>(fun) : { value: fun() }
 }
 
-function watch<T>(target: ObserverValue<T>, fun: voidFun<T>) {
+function watch<T>(target: ObserverValue<T>, fun: VoidFun<T>) {
   return hasProxy() ? _watch<T>(target, fun) : () => ({})
 }
 
-export { ref, computed, watch }
+export { computed, ref, watch }
 
 // ---------------- demo 1 ----------------
 // const data = {

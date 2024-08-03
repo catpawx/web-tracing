@@ -1,21 +1,22 @@
-import type { InitOptions } from './src/types'
-import { initReplace } from './src/lib/replace'
-import { initOptions, options as _options } from './src/lib/options'
+import './src/observer/index'
+
+import { SENDID } from './src/common'
 import { initBase } from './src/lib/base'
-import { initSendData } from './src/lib/sendData'
-import { initLineStatus } from './src/lib/line-status'
 import { initError, parseError } from './src/lib/err'
 import { initEvent } from './src/lib/event'
+import * as exportMethods from './src/lib/exportMethods'
 import { initHttp } from './src/lib/http'
+import { initIntersection } from './src/lib/intersectionObserver'
+import { initLineStatus } from './src/lib/line-status'
+import { initOptions, options as _options } from './src/lib/options'
 import { initPerformance } from './src/lib/performance'
 import { initPv } from './src/lib/pv'
-import { initIntersection } from './src/lib/intersectionObserver'
-import { _global } from './src/utils/global'
-import { SENDID } from './src/common'
-import { logError } from './src/utils/debug'
 import { initRecordScreen } from './src/lib/recordscreen'
-import * as exportMethods from './src/lib/exportMethods'
-import './src/observer/index'
+import { initReplace } from './src/lib/replace'
+import { initSendData } from './src/lib/sendData'
+import type { InitOptions } from './src/types'
+import { logError } from './src/utils/debug'
+import { _global } from './src/utils/global'
 
 function init(options: InitOptions): void {
   if (_global.__webTracingInit__) return
@@ -40,13 +41,13 @@ function init(options: InitOptions): void {
 }
 
 export {
+  exportMethods,
   init,
   InitOptions,
   logError,
+  _options as options,
   parseError,
   SENDID,
-  exportMethods,
-  _options as options
 }
 export * from './src/lib/exportMethods'
 export default { init, ...exportMethods, options: _options }

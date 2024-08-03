@@ -8,7 +8,7 @@ describe('err', () => {
       appName: 'unit-test',
       error: true,
       recordScreen: false,
-      scopeError: true
+      scopeError: true,
     })
   })
 
@@ -28,7 +28,7 @@ describe('err', () => {
         filename: 'test.js',
         lineno: 10,
         colno: 20,
-        error: new Error('code error')
+        error: new Error('code error'),
       })
       window.dispatchEvent(errorEvent)
     }
@@ -40,8 +40,8 @@ describe('err', () => {
         eventId: 'code',
         eventType: 'error',
         errMessage: 'code error',
-        batchError: true
-      }
+        batchError: true,
+      },
     ])
   })
 })
